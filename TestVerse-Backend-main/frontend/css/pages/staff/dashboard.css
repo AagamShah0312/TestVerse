@@ -1,0 +1,67 @@
+/**
+ * Staff Dashboard Styles
+ */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.welcome-text {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.section-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+}
+
+.quick-actions {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.exams-table-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.table-actions {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+    margin-right: var(--space-2);
+}
+
+.status-dot.published {
+    background: var(--success);
+}
+
+.status-dot.draft {
+    background: var(--warning);
+}
+
+.status-dot.completed {
+    background: var(--text-tertiary);
+}

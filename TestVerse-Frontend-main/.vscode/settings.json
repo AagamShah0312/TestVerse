@@ -1,0 +1,25 @@
+{
+    "liveServer.settings.port": 5501,
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d67e79er433s73f4ertg-a.oregon-postgres.render.com",
+            "port": 5432,
+            "sshOptions": {
+                "port": 22
+            },
+            "driver": "PostgreSQL",
+            "name": "TestVerse DB",
+            "database": "testverse_database",
+            "username": "testverse_database_user",
+            "connectionTimeout": 30,
+            "password": "qG5mA1ZAv0ROiweT2kW5Q3ispSkcK8Kw"
+        }
+    ]
+}

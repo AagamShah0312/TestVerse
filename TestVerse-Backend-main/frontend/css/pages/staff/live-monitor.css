@@ -1,0 +1,207 @@
+/**
+ * Staff Live Monitor Page Styles
+ */
+
+.monitor-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.monitor-stat-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    text-align: center;
+}
+
+.monitor-stat-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.monitor-stat-card p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.monitor-stat-card.live h3 {
+    color: #10b981;
+}
+
+.monitor-stat-card.active h3 {
+    color: var(--primary);
+}
+
+/* Live Status Indicator */
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+.live-indicator.live {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.live-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Student Progress List */
+.progress-list {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.progress-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr 100px;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-tertiary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.progress-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr 100px;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+}
+
+.progress-item:last-child {
+    border-bottom: none;
+}
+
+.progress-item.struggling {
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.student-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-name {
+    font-weight: 500;
+}
+
+.student-email {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    height: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-hover) 100%);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+}
+
+.progress-bar-fill.struggling {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+}
+
+.progress-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.progress-percent {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.progress-answers {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Time Remaining */
+.time-remaining {
+    font-weight: 500;
+}
+
+.time-remaining.warning {
+    color: #f59e0b;
+}
+
+.time-remaining.critical {
+    color: #ef4444;
+}
+
+/* Tab switches */
+.tab-switches {
+    font-size: 0.875rem;
+}
+
+.tab-switches.high {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+/* Auto Refresh */
+.refresh-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.refresh-indicator .spinner {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+@media (max-width: 768px) {
+
+    .progress-list-header,
+    .progress-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Exam History - University Exam Portal">
+  <title>Exam History - University Exam Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/pages/student/history.css">
+  <link rel="stylesheet" href="../../css/pages/staff/students.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="../../index.html" class="navbar-brand">
+          <div class="navbar-logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          Exam Portal
+        </a>
+        
+        <div class="navbar-menu">
+          <a href="dashboard.html" class="navbar-link">Dashboard</a>
+          <a href="analytics.html" class="navbar-link">Analytics</a>
+          <a href="leaderboard.html" class="navbar-link">Leaderboard</a>
+          <a href="history.html" class="navbar-link active">Exam History</a>
+          <a href="results.html" class="navbar-link">My Results</a>
+          <a href="profile.html" class="navbar-link">Profile</a>
+        </div>
+        
+        <div class="navbar-user">
+          <span class="badge badge-secondary" id="branch-badge">Loading...</span>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button class="profile-dropdown-toggle" onclick="toggleProfileDropdown()">
+              <span class="text-muted text-sm" id="user-name">Loading...</span>
+              <div class="navbar-avatar" id="user-avatar">?</div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="profile-dropdown-menu">
+              <div class="profile-dropdown-header">
+                <div class="profile-dropdown-name" id="dropdown-name">Student</div>
+                <div class="profile-dropdown-email" id="dropdown-email">student@example.com</div>
+              </div>
+              <a href="dashboard.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Dashboard
+              </a>
+              <a href="analytics.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                Analytics
+              </a>
+              <a href="leaderboard.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="8.5" cy="7" r="4"/>
+                  <polyline points="17 11 19 13 23 9"/>
+                </svg>
+                Leaderboard
+              </a>
+              <a href="results.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+                My Results
+              </a>
+              <div class="profile-dropdown-divider"></div>
+              <button class="profile-dropdown-item danger" onclick="Auth.logout()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16 17 21 12 16 7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <main class="main-content">
+    <div class="container">
+      <div class="page-header animate-fadeInUp">
+        <div>
+          <h1 class="text-3xl font-bold">Exam History</h1>
+          <p class="text-muted">View all your past exam attempts</p>
+        </div>
+      </div>
+      
+      <!-- Stats Summary -->
+      <div class="stats-row animate-fadeInUp">
+        <div class="stat-card">
+          <h3 id="total-attempts">0</h3>
+          <p>Total Attempts</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="passed-count">0</h3>
+          <p>Passed</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="failed-count">0</h3>
+          <p>Failed</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="avg-score">0%</h3>
+          <p>Average Score</p>
+        </div>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <div class="history-header animate-fadeInUp">
+        <div class="filter-tabs">
+          <button class="filter-tab active" onclick="filterAttempts('all')">All</button>
+          <button class="filter-tab" onclick="filterAttempts('passed')">Passed</button>
+          <button class="filter-tab" onclick="filterAttempts('failed')">Failed</button>
+        </div>
+        <div class="search-input-wrapper" style="max-width: 250px;">
+          <input type="text" class="form-input" id="search-input" placeholder="Search exams...">
+        </div>
+      </div>
+      
+      <!-- Attempts List -->
+      <div id="attempts-container" class="animate-fadeInUp">
+        <div class="loading-state" style="padding: 3rem; text-align: center;">
+          <div class="spinner" style="margin: 0 auto;"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Answer Review Modal -->
+  <div class="modal-overlay" id="review-modal">
+    <div class="modal" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Review Answers</h3>
+      </div>
+      <div class="modal-body review-modal-content" id="review-content">
+        <!-- Populated by JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeReviewModal()">Close</button>
+        <button type="button" class="btn btn-secondary" onclick="downloadPDF()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/student-history.js"></script>
+</body>
+</html>

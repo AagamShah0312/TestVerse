@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to TestVerse - Online Examination Platform">
+    <title>Login - TestVerse</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pages/auth.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ==================== AUTH CONTAINER ==================== -->
+    <div class="auth-wrapper">
+        
+        <!-- Left Side - Branding -->
+        <div class="auth-branding">
+            <div class="branding-content">
+                <!-- Logo -->
+                <a href="index.html" class="branding-logo">
+                    <div class="logo-icon">T</div>
+                    <span class="logo-text">TestVerse</span>
+                </a>
+
+                <!-- Branding Text -->
+                <h1 class="branding-title">
+                    Welcome Back to TestVerse
+                </h1>
+                <p class="branding-description">
+                    Sign in to access your exams, view results, and manage your account.
+                </p>
+
+                <!-- Features List -->
+                <ul class="branding-features">
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        <span>Access all your exams in one place</span>
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        <span>Track your performance and progress</span>
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        <span>Secure and reliable platform</span>
+                    </li>
+                </ul>
+
+                <!-- Testimonial -->
+                <div class="branding-testimonial">
+                    <p class="testimonial-text">
+                        "TestVerse has transformed how we conduct exams. 
+                        The interface is intuitive and the features are powerful."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <div class="author-name">John Doe</div>
+                            <div class="author-role">Professor, MIT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Decoration -->
+            <div class="branding-decoration">
+                <div class="decoration-shape shape-1"></div>
+                <div class="decoration-shape shape-2"></div>
+                <div class="decoration-shape shape-3"></div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="auth-form-container">
+            <div class="auth-form-wrapper">
+                
+                <!-- Back to Home Link -->
+                <a href="index.html" class="back-link">
+                    <span>←</span> Back to Home
+                </a>
+
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h2 class="form-title">Sign In</h2>
+                    <p class="form-subtitle">
+                        Enter your credentials to access your account
+                    </p>
+                </div>
+
+                <!-- Alert Container -->
+                <div id="alertContainer"></div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon-left">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </span>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="form-input" 
+                                placeholder="your.email@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper password-wrapper">
+                            <span class="input-icon-left">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                                </svg>
+                            </span>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-off-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="form-error" id="passwordError"></span>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="remember" name="remember" class="checkbox-input">
+                            <span class="checkbox-label">Remember me</span>
+                        </label>
+                        <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader hidden">
+                            <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="form-footer">
+                    <p>
+                        Don't have an account? 
+                        <a href="signup.html" class="signup-link">Sign Up</a>
+                    </p>
+                </div>
+
+                <!-- Role Selection Info -->
+                <div class="role-info">
+                    <p class="role-text">
+                        <strong>Students:</strong> Use your institutional email<br>
+                        <strong>Staff:</strong> Use your staff credentials
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/pages/login.js"></script>
+</body>
+</html>

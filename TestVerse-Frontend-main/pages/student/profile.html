@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | TestVerse</title>
+
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core -->
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/core/layout.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/cards.css">
+    <link rel="stylesheet" href="../../css/components/badges.css">
+
+    <!-- Page -->
+    <link rel="stylesheet" href="../../css/pages/student/profile.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">TestVerse</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"   class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"       class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="results.html"     class="nav-item"><i class="fas fa-chart-bar"></i><span>My Results</span></a>
+            <a href="leaderboard.html" class="nav-item"><i class="fas fa-trophy"></i><span>Leaderboard</span></a>
+            <a href="analytics.html"   class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="profile.html"     class="nav-item active"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user-card">
+                <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                     alt="Avatar" class="su-avatar" id="sidebarAvatar">
+                <div class="su-info">
+                    <span class="su-name" id="sidebarName">Loading…</span>
+                    <span class="su-role">Student</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══════════════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">My Profile</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge hidden" id="notifBadge">0</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                         alt="Avatar" class="user-avatar" id="topbarAvatar">
+                    <div class="user-info">
+                        <span class="user-name" id="topbarName">Loading…</span>
+                        <span class="user-role">Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- Global toast -->
+            <div class="toast hidden" id="toast">
+                <i class="fas fa-check-circle" id="toastIcon"></i>
+                <span id="toastMsg">Saved!</span>
+            </div>
+
+            <!-- ── PROFILE HERO ────────────────────────────────────── -->
+            <div class="profile-hero">
+                <div class="ph-avatar-wrap">
+                    <img id="heroAvatar"
+                         src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff&size=128"
+                         alt="Avatar" class="ph-avatar">
+                    <div class="ph-avatar-overlay" id="avatarOverlay" title="Change avatar">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="ph-info">
+                    <h2 class="ph-name" id="heroName">
+                        <span class="shimmer-txt"></span>
+                    </h2>
+                    <p class="ph-email" id="heroEmail">
+                        <span class="shimmer-txt sm"></span>
+                    </p>
+                    <div class="ph-chips">
+                        <span class="ph-chip role" id="heroRole">
+                            <i class="fas fa-user-graduate"></i> Student
+                        </span>
+                        <span class="ph-chip joined" id="heroJoined">
+                            <i class="fas fa-calendar-alt"></i> —
+                        </span>
+                        <span class="ph-chip status active-chip">
+                            <i class="fas fa-circle"></i> Active
+                        </span>
+                    </div>
+                </div>
+                <div class="ph-stats" id="heroStats">
+                    <!-- Filled by JS from analytics / results -->
+                    <div class="ph-stat shimmer-stat"></div>
+                    <div class="ph-stat shimmer-stat"></div>
+                    <div class="ph-stat shimmer-stat"></div>
+                </div>
+            </div>
+
+            <!-- ── TAB NAV ────────────────────────────────────────── -->
+            <div class="profile-tabs" id="profileTabs">
+                <button class="ptab active" data-tab="info">
+                    <i class="fas fa-id-card"></i> Account Info
+                </button>
+                <button class="ptab" data-tab="password">
+                    <i class="fas fa-lock"></i> Change Password
+                </button>
+                <button class="ptab" data-tab="activity">
+                    <i class="fas fa-history"></i> Recent Activity
+                </button>
+                <button class="ptab" data-tab="danger">
+                    <i class="fas fa-shield-alt"></i> Security
+                </button>
+            </div>
+
+            <!-- ══ TAB: ACCOUNT INFO ══════════════════════════════════ -->
+            <div class="tab-panel active" id="tab-info">
+                <div class="profile-grid">
+
+                    <!-- Edit Profile Form -->
+                    <div class="p-card p-card-lg">
+                        <div class="p-card-header">
+                            <h3 class="p-card-title">
+                                <i class="fas fa-user-edit"></i> Personal Information
+                            </h3>
+                            <span class="save-status hidden" id="infoSaveStatus">
+                                <i class="fas fa-check"></i> Saved
+                            </span>
+                        </div>
+
+                        <form id="infoForm" class="profile-form" novalidate>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="fieldName">Full Name</label>
+                                    <div class="input-wrap">
+                                        <i class="fas fa-user input-icon"></i>
+                                        <input type="text" id="fieldName" name="name"
+                                               class="form-input" placeholder="Your full name"
+                                               autocomplete="name">
+                                    </div>
+                                    <span class="field-err hidden" id="errName"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="fieldUsername">Username</label>
+                                    <div class="input-wrap">
+                                        <i class="fas fa-at input-icon"></i>
+                                        <input type="text" id="fieldUsername" name="username"
+                                               class="form-input" placeholder="username"
+                                               autocomplete="username">
+                                    </div>
+                                    <span class="field-err hidden" id="errUsername"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row single">
+                                <div class="form-group">
+                                    <label class="form-label" for="fieldEmail">Email Address</label>
+                                    <div class="input-wrap">
+                                        <i class="fas fa-envelope input-icon"></i>
+                                        <input type="email" id="fieldEmail" name="email"
+                                               class="form-input" placeholder="you@example.com"
+                                               autocomplete="email">
+                                    </div>
+                                    <span class="field-err hidden" id="errEmail"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-alert hidden" id="infoAlert"></div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-ghost" id="infoResetBtn">
+                                    <i class="fas fa-undo"></i> Reset
+                                </button>
+                                <button type="submit" class="btn-primary" id="infoSaveBtn">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Account Meta Card -->
+                    <div class="p-card">
+                        <div class="p-card-header">
+                            <h3 class="p-card-title">
+                                <i class="fas fa-info-circle"></i> Account Details
+                            </h3>
+                        </div>
+                        <div class="meta-list" id="metaList">
+                            <div class="meta-row shimmer-meta"></div>
+                            <div class="meta-row shimmer-meta"></div>
+                            <div class="meta-row shimmer-meta"></div>
+                            <div class="meta-row shimmer-meta"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ══ TAB: CHANGE PASSWORD ═══════════════════════════════ -->
+            <div class="tab-panel hidden" id="tab-password">
+                <div class="profile-grid single-col">
+                    <div class="p-card p-card-md">
+                        <div class="p-card-header">
+                            <h3 class="p-card-title">
+                                <i class="fas fa-lock"></i> Change Password
+                            </h3>
+                        </div>
+
+                        <form id="pwForm" class="profile-form" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" for="fieldCurrentPw">Current Password</label>
+                                <div class="input-wrap">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="fieldCurrentPw" name="old_password"
+                                           class="form-input" placeholder="Your current password"
+                                           autocomplete="current-password">
+                                    <button type="button" class="pw-toggle" data-target="fieldCurrentPw">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="field-err hidden" id="errCurrentPw"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="fieldNewPw">New Password</label>
+                                <div class="input-wrap">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="fieldNewPw" name="new_password"
+                                           class="form-input" placeholder="At least 8 characters"
+                                           autocomplete="new-password">
+                                    <button type="button" class="pw-toggle" data-target="fieldNewPw">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <!-- Password strength -->
+                                <div class="pw-strength-wrap hidden" id="pwStrengthWrap">
+                                    <div class="pw-strength-bar">
+                                        <div class="pw-strength-fill" id="pwStrengthFill"></div>
+                                    </div>
+                                    <span class="pw-strength-label" id="pwStrengthLabel"></span>
+                                </div>
+                                <span class="field-err hidden" id="errNewPw"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="fieldConfirmPw">Confirm New Password</label>
+                                <div class="input-wrap">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="fieldConfirmPw" name="confirm_password"
+                                           class="form-input" placeholder="Re-enter new password"
+                                           autocomplete="new-password">
+                                    <button type="button" class="pw-toggle" data-target="fieldConfirmPw">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span class="field-err hidden" id="errConfirmPw"></span>
+                            </div>
+
+                            <div class="pw-rules">
+                                <p class="pw-rules-title">Password must:</p>
+                                <ul>
+                                    <li id="ruleLen"  class="rule"><i class="fas fa-circle"></i> Be at least 8 characters</li>
+                                    <li id="ruleUpper"class="rule"><i class="fas fa-circle"></i> Include an uppercase letter</li>
+                                    <li id="ruleNum"  class="rule"><i class="fas fa-circle"></i> Include a number</li>
+                                    <li id="ruleMatch"class="rule"><i class="fas fa-circle"></i> Passwords must match</li>
+                                </ul>
+                            </div>
+
+                            <div class="form-alert hidden" id="pwAlert"></div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary" id="pwSaveBtn">
+                                    <i class="fas fa-key"></i> Update Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ TAB: RECENT ACTIVITY ═══════════════════════════════ -->
+            <div class="tab-panel hidden" id="tab-activity">
+                <div class="p-card p-card-full">
+                    <div class="p-card-header">
+                        <h3 class="p-card-title">
+                            <i class="fas fa-history"></i> Recent Exam Activity
+                        </h3>
+                        <a href="results.html" class="btn-link">View All Results →</a>
+                    </div>
+                    <div id="activityWrap">
+                        <div class="p-loading" id="activityLoading">
+                            <div class="spinner-sm"></div><span>Loading activity…</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ TAB: SECURITY ══════════════════════════════════════ -->
+            <div class="tab-panel hidden" id="tab-danger">
+                <div class="profile-grid single-col">
+
+                    <!-- Sessions info -->
+                    <div class="p-card p-card-md">
+                        <div class="p-card-header">
+                            <h3 class="p-card-title"><i class="fas fa-desktop"></i> Active Sessions</h3>
+                        </div>
+                        <div class="session-info">
+                            <div class="session-row">
+                                <div class="session-icon"><i class="fas fa-globe"></i></div>
+                                <div class="session-body">
+                                    <span class="session-name">Current browser session</span>
+                                    <span class="session-detail" id="sessionDetail">This device · Active now</span>
+                                </div>
+                                <span class="session-badge">Current</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danger zone -->
+                    <div class="p-card p-card-md danger-card">
+                        <div class="p-card-header">
+                            <h3 class="p-card-title danger-title">
+                                <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                            </h3>
+                        </div>
+                        <div class="danger-actions">
+                            <div class="danger-row">
+                                <div class="danger-info">
+                                    <span class="danger-act-title">Sign out everywhere</span>
+                                    <span class="danger-act-desc">Clears your token from this device and logs you out.</span>
+                                </div>
+                                <button class="btn-danger-outline" id="signOutBtn">
+                                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                                </button>
+                            </div>
+                            <div class="danger-divider"></div>
+                            <div class="danger-row">
+                                <div class="danger-info">
+                                    <span class="danger-act-title">Delete account</span>
+                                    <span class="danger-act-desc">Permanently removes your account and all data. This cannot be undone.</span>
+                                </div>
+                                <button class="btn-danger" id="deleteAccountBtn">
+                                    <i class="fas fa-trash-alt"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- /page-content -->
+    </main>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/pages/student/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+/* ============================================
+   FEEDBACK ELEMENTS (Badges, Toasts, Empty States)
+   ============================================ */
+
+/* Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-primary {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary-400);
+}
+
+.badge-success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+}
+
+.badge-warning {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+}
+
+.badge-error {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--error);
+}
+
+.badge-info {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--info);
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideIn 0.3s ease;
+}
+
+.toast-success {
+    border-left: 4px solid var(--success);
+}
+
+.toast-error {
+    border-left: 4px solid var(--error);
+}
+
+.toast-warning {
+    border-left: 4px solid var(--warning);
+}
+
+.toast-info {
+    border-left: 4px solid var(--info);
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+}
+
+.toast-message {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: var(--space-16) var(--space-6);
+}
+
+.empty-state-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-6);
+    border-radius: var(--radius-full);
+    background: rgba(99, 102, 241, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-400);
+}
+
+.empty-state-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+}
+
+.empty-state-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+/* Error State */
+.error-state {
+    text-align: center;
+    padding: var(--space-16) var(--space-6);
+}
+
+.error-state-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-6);
+    border-radius: var(--radius-full);
+    background: rgba(239, 68, 68, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--error);
+}
+
+.error-state-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+}
+
+.error-state-message {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+    white-space: pre-line;
+}
+
+/* Loading State */
+.loading-state {
+    padding: var(--space-4);
+}

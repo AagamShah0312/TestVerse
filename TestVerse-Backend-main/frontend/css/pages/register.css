@@ -1,0 +1,67 @@
+/* Register Page Specific Styles */
+
+/* Form row for side-by-side fields */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Password requirements text */
+.password-requirements {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+/* Error message styling */
+.error-message {
+  display: none;
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+/* Terms checkbox styling */
+.form-checkbox-group a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.form-checkbox-group a:hover {
+  text-decoration: underline;
+}
+
+/* Optional text styling */
+.optional-text {
+  color: var(--text-tertiary);
+  font-weight: normal;
+}
+
+/* Responsive adjustments for form row */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* Additional spacing adjustments */
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Focus states for better accessibility */
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Button success state */
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white;
+}

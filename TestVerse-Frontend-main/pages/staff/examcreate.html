@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Exam — TestVerse Staff</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/components/forms.css">
+    <link rel="stylesheet" href="../../css/pages/staff/examcreate.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"     class="nav-item active"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"  class="nav-item"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"   class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"  class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="Avatar" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">Staff</span>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <a href="exams.html" class="breadcrumb-item breadcrumb-link">Exams</a>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <span class="breadcrumb-item active">Create Exam</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div>
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main class="page-content">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Create New Exam</h1>
+                    <p class="page-subtitle">Fill in the exam details — you'll add questions on the next step</p>
+                </div>
+                <a href="exams.html" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back to Exams
+                </a>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active">
+                    <div class="step-circle"><i class="fas fa-info-circle"></i></div>
+                    <div class="step-body">
+                        <span class="step-label">Step 1</span>
+                        <span class="step-title">Basic Details</span>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step pending">
+                    <div class="step-circle"><i class="fas fa-list-ol"></i></div>
+                    <div class="step-body">
+                        <span class="step-label">Step 2</span>
+                        <span class="step-title">Add Questions</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert -->
+            <div id="alertContainer"></div>
+
+            <!-- Form -->
+            <form id="createExamForm" novalidate>
+
+                <!-- ─ Section: Basic Info ─ -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>
+                            <h2 class="form-section-title">Basic Information</h2>
+                            <p class="form-section-desc">Name, type and description of the exam</p>
+                        </div>
+                    </div>
+                    <div class="form-section-body">
+                        <div class="form-row form-row-2">
+                            <div class="form-group">
+                                <label class="form-label required" for="examTitle">Exam Title</label>
+                                <input type="text" id="examTitle" name="title"
+                                    class="form-input"
+                                    placeholder="e.g. Data Structures Mid-Term"
+                                    maxlength="200" autocomplete="off" required>
+                                <span class="form-error" id="titleErr"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required" for="examType">Exam Type</label>
+                                <select id="examType" name="exam_type" class="form-select" required>
+                                    <option value="" disabled selected>Select type…</option>
+                                    <option value="mcq">MCQ Only</option>
+                                    <option value="mixed">Mixed</option>
+                                    <option value="descriptive">Descriptive</option>
+                                    <option value="coding">Coding</option>
+                                </select>
+                                <span class="form-error" id="typeErr"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required" for="examDescription">Description</label>
+                            <textarea id="examDescription" name="description"
+                                class="form-textarea" rows="3"
+                                placeholder="Brief overview of what this exam covers…"
+                                maxlength="1000" required></textarea>
+                            <span class="char-count" id="descCount">0 / 1000</span>
+                            <span class="form-error" id="descErr"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="examInstructions">
+                                Instructions <span class="optional-tag">Optional</span>
+                            </label>
+                            <textarea id="examInstructions" name="instructions"
+                                class="form-textarea" rows="3"
+                                placeholder="Special rules, allowed materials, anti-cheat notes…"
+                                maxlength="2000"></textarea>
+                            <span class="char-count" id="instrCount">0 / 2000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─ Section: Schedule ─ -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div>
+                            <h2 class="form-section-title">Schedule</h2>
+                            <p class="form-section-desc">Set when the exam starts, ends and how long students have</p>
+                        </div>
+                    </div>
+                    <div class="form-section-body">
+                        <div class="form-row form-row-2">
+                            <div class="form-group">
+                                <label class="form-label required" for="startTime">Start Date &amp; Time</label>
+                                <input type="datetime-local" id="startTime" name="start_time"
+                                    class="form-input" required>
+                                <span class="form-error" id="startErr"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required" for="endTime">End Date &amp; Time</label>
+                                <input type="datetime-local" id="endTime" name="end_time"
+                                    class="form-input" required>
+                                <span class="form-error" id="endErr"></span>
+                            </div>
+                        </div>
+
+                        <!-- Duration pill -->
+                        <div class="duration-display" id="durationDisplay">
+                            <div class="duration-icon"><i class="fas fa-hourglass-half"></i></div>
+                            <div class="duration-body">
+                                <span class="duration-label">Total Duration</span>
+                                <span class="duration-value" id="durationValue">—</span>
+                            </div>
+                            <div class="duration-breakdown" id="durationBreakdown"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─ Section: Scoring ─ -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon"><i class="fas fa-star"></i></div>
+                        <div>
+                            <h2 class="form-section-title">Scoring</h2>
+                            <p class="form-section-desc">Marks and passing criteria</p>
+                        </div>
+                    </div>
+                    <div class="form-section-body">
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label class="form-label required" for="totalMarks">Total Marks</label>
+                                <input type="number" id="totalMarks" name="total_marks"
+                                    class="form-input" placeholder="e.g. 100"
+                                    min="1" max="9999" required>
+                                <span class="form-error" id="totalErr"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required" for="passingMarks">Passing Marks</label>
+                                <input type="number" id="passingMarks" name="passing_marks"
+                                    class="form-input" placeholder="e.g. 40"
+                                    min="1" max="9999" required>
+                                <span class="form-error" id="passErr"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Pass Percentage</label>
+                                <div class="computed-field">
+                                    <span id="passPercent">—</span>
+                                    <span class="computed-unit">%</span>
+                                </div>
+                                <span class="form-help">Auto-calculated</span>
+                            </div>
+                        </div>
+                        <!-- Pass bar -->
+                        <div class="pass-bar-wrap" id="passBarWrap" style="display:none;">
+                            <div class="pass-bar-track">
+                                <div class="pass-bar-fill"   id="passBarFill"></div>
+                                <div class="pass-bar-marker" id="passBarMarker"></div>
+                            </div>
+                            <div class="pass-bar-labels">
+                                <span>0</span>
+                                <span id="passBarPassLabel"></span>
+                                <span id="totalMarksLabel"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─ Section: Access & Visibility ─ -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon"><i class="fas fa-lock-open"></i></div>
+                        <div>
+                            <h2 class="form-section-title">Access &amp; Visibility</h2>
+                            <p class="form-section-desc">Which departments can see and attempt this exam</p>
+                        </div>
+                    </div>
+                    <div class="form-section-body">
+                        <div class="form-row form-row-2">
+
+                            <!-- Department picker -->
+                            <div class="form-group">
+                                <label class="form-label required">Allowed Departments</label>
+                                <div class="branch-picker" id="deptPicker">
+                                    <div class="branch-search-wrap">
+                                        <i class="fas fa-search branch-search-icon"></i>
+                                        <input type="text" id="deptSearch"
+                                            class="branch-search-input"
+                                            placeholder="Search departments…"
+                                            autocomplete="off">
+                                    </div>
+                                    <div class="branch-list" id="deptList">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+                                <span class="form-error" id="deptErr"></span>
+                                <div class="selected-branches" id="selectedDepts"></div>
+                            </div>
+
+                            <!-- Attempt + Result Visibility -->
+                            <div class="form-group">
+                                <label class="form-label" for="attemptLimit">Attempt Limit</label>
+                                <select id="attemptLimit" name="max_attempts" class="form-select">
+                                    <option value="1">1 attempt (default)</option>
+                                    <option value="2">2 attempts</option>
+                                    <option value="3">3 attempts</option>
+                                    <option value="0">Unlimited</option>
+                                </select>
+                                <span class="form-help">How many times a student can attempt this exam</span>
+
+                                <label class="form-label" style="margin-top:1.25rem;" for="resultVisibility">
+                                    When to Show Results
+                                </label>
+                                <select id="resultVisibility" name="result_visibility" class="form-select">
+                                    <option value="immediate">Immediately after submission</option>
+                                    <option value="after_end">After exam window closes</option>
+                                    <option value="manual">Manual release by staff</option>
+                                </select>
+                                <span class="form-help" id="resultVisibilityHint">
+                                    Students see score &amp; answers right after they submit
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Toggles -->
+                        <div class="toggle-grid">
+                            <label class="toggle-item">
+                                <div class="toggle-info">
+                                    <span class="toggle-title">Shuffle Questions</span>
+                                    <span class="toggle-desc">Questions appear in random order for each student</span>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="shuffleQuestions" name="shuffle_questions">
+                                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                </div>
+                            </label>
+                            <label class="toggle-item">
+                                <div class="toggle-info">
+                                    <span class="toggle-title">Shuffle Answer Options</span>
+                                    <span class="toggle-desc">MCQ choices appear in random order per student</span>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="shuffleOptions" name="shuffle_options">
+                                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                </div>
+                            </label>
+                            <label class="toggle-item">
+                                <div class="toggle-info">
+                                    <span class="toggle-title">Allow Answer Review</span>
+                                    <span class="toggle-desc">Students can review their answers after the exam ends</span>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="allowReview" name="allow_review" checked>
+                                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─ Sticky Footer Actions ─ -->
+                <div class="form-actions">
+                    <a href="exams.html" class="btn btn-outline">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <div class="form-actions-right">
+                        <button type="button" class="btn btn-ghost" id="saveDraftBtn">
+                            <span class="btn-text"><i class="fas fa-save"></i> Save as Draft</span>
+                            <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Saving…</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="btn-text"><i class="fas fa-arrow-right"></i> Continue to Questions</span>
+                            <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Creating…</span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </main>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/examcreate.js"></script>
+</body>
+</html>

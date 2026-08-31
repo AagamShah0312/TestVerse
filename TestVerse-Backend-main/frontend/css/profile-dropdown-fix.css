@@ -1,0 +1,72 @@
+/* Profile Dropdown Toggle Button Enhancement */
+.profile-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    position: relative;
+}
+
+.profile-dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.profile-dropdown-toggle:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-dropdown-toggle:active {
+    transform: translateY(0);
+}
+
+/* Enhanced arrow icon */
+.profile-dropdown-toggle svg {
+    transition: transform 0.2s ease;
+    color: var(--text-secondary);
+}
+
+.profile-dropdown.active .profile-dropdown-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* Better spacing for avatar */
+.navbar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* User name text improvement */
+.profile-dropdown-toggle .text-muted {
+    color: var(--text-secondary);
+    font-size: 13px;
+    transition: color 0.2s ease;
+}
+
+.profile-dropdown-toggle:hover .text-muted {
+    color: var(--text-primary);
+}

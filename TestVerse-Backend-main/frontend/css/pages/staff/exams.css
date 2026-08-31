@@ -1,0 +1,93 @@
+/**
+ * Staff Exams List Styles
+ */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.exams-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--border-primary);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.status-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    display: inline-block;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: rgba(120, 120, 128, 0.32);
+    border-radius: 28px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-slider:hover {
+    background: rgba(120, 120, 128, 0.45);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-switch input:checked+.toggle-slider {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+.toggle-switch input:checked+.toggle-slider:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+.toggle-switch input:checked+.toggle-slider::before {
+    transform: translateX(24px);
+}
+
+.toggle-switch input:focus+.toggle-slider {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+}

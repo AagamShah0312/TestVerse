@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students & Staff — TestVerse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/pages/staff/students.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i><span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"     class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"  class="nav-item active"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"   class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"  class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item active">Students &amp; Staff</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main class="page-content">
+            <div id="alertContainer"></div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header-left">
+                    <h1 class="page-title"><i class="fas fa-users"></i> Students &amp; Staff</h1>
+                    <p class="page-subtitle">Manage users, assign departments and roles</p>
+                </div>
+                <div class="page-header-right">
+                    <button class="btn btn-primary" id="addUserBtn">
+                        <i class="fas fa-user-plus"></i> Add User
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-val" id="statTotal">0</span>
+                        <span class="stat-lbl">Total Users</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon indigo"><i class="fas fa-user-graduate"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-val" id="statStudents">0</span>
+                        <span class="stat-lbl">Students</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-val" id="statStaff">0</span>
+                        <span class="stat-lbl">Staff</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon teal"><i class="fas fa-building"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-val" id="statDepts">0</span>
+                        <span class="stat-lbl">Departments</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="list-toolbar">
+                <div class="toolbar-left">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search name, email, enroll ID…" autocomplete="off">
+                        <button class="search-clear" id="searchClear" style="display:none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-role="">All</button>
+                        <button class="filter-tab" data-role="student">Students</button>
+                        <button class="filter-tab" data-role="staff">Staff</button>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <select class="toolbar-select" id="deptFilter">
+                        <option value="">All Departments</option>
+                    </select>
+                    <span class="result-count" id="resultCount">0 users</span>
+                </div>
+            </div>
+
+            <!-- Table Wrap -->
+            <div class="table-wrap">
+                <div class="table-loading" id="tableLoading">
+                    <div class="spinner"></div>
+                    <p>Loading users…</p>
+                </div>
+                <div class="table-empty" id="tableEmpty" style="display:none;">
+                    <div class="empty-icon"><i class="fas fa-users-slash"></i></div>
+                    <h3>No users found</h3>
+                    <p id="emptyMsg">No users match your current filters.</p>
+                    <button class="btn btn-primary btn-sm" id="emptyAddBtn">
+                        <i class="fas fa-user-plus"></i> Add First User
+                    </button>
+                </div>
+                <table class="users-table" id="usersTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" title="Select all"></th>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Enroll ID</th>
+                            <th>Department</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Bulk Bar -->
+            <div class="bulk-bar" id="bulkBar" style="display:none;">
+                <span id="bulkCount">0 selected</span>
+                <div class="bulk-actions">
+                    <button class="btn btn-sm btn-outline" id="bulkPromote">
+                        <i class="fas fa-arrow-up"></i> Make Staff
+                    </button>
+                    <button class="btn btn-sm btn-outline" id="bulkDemote">
+                        <i class="fas fa-arrow-down"></i> Make Student
+                    </button>
+                    <button class="btn btn-sm btn-danger-solid" id="bulkDelete">
+                        <i class="fas fa-trash"></i> Delete Selected
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display:none;">
+                <button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+                <span class="page-info" id="pageInfo">Page 1</span>
+                <button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ══ USER DRAWER ══ -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="user-drawer" id="userDrawer">
+    <div class="drawer-header">
+        <div class="drawer-header-left">
+            <div class="drawer-icon" id="drawerIcon"><i class="fas fa-user-edit"></i></div>
+            <div>
+                <h2 class="drawer-title"    id="drawerTitle">Edit User</h2>
+                <p  class="drawer-subtitle" id="drawerSubtitle">Manage role, department &amp; enrollment</p>
+            </div>
+        </div>
+        <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Fetch Loading -->
+    <div class="drawer-fetch-loading" id="drawerFetchLoading" style="display:none;">
+        <div class="spinner"></div>
+        <p>Loading user details…</p>
+    </div>
+
+    <div class="drawer-body" id="drawerBody">
+        <div id="drawerAlert"></div>
+
+        <!-- ── Read-only Identity Card ── -->
+        <div class="user-identity-card" id="userIdentityCard">
+            <img class="uid-avatar" id="uidAvatar" src="" alt="">
+            <div class="uid-info">
+                <span class="uid-name"     id="uidName">—</span>
+                <span class="uid-email"    id="uidEmail">—</span>
+                <span class="uid-username" id="uidUsername">—</span>
+            </div>
+            <div class="uid-lock-badge" title="Name, email &amp; username can only be changed by the user">
+                <i class="fas fa-lock"></i> Read-only
+            </div>
+        </div>
+
+        <div class="drawer-divider"><span>Editable Fields</span></div>
+
+        <!-- Role -->
+        <div class="drawer-field">
+            <label class="drawer-label">Role <span class="req">*</span></label>
+            <div class="role-selector">
+                <button type="button" class="role-btn active" data-value="student">
+                    <i class="fas fa-user-graduate"></i><span>Student</span>
+                </button>
+                <button type="button" class="role-btn" data-value="staff">
+                    <i class="fas fa-chalkboard-teacher"></i><span>Staff</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ══ FIXED: Department dropdown ══ -->
+        <div class="drawer-field">
+            <label class="drawer-label" for="dDepartment">
+                Department
+                <span class="req">*</span>
+                <span class="staff-note" id="deptNote">Staff need department too</span>
+            </label>
+            <div class="dept-select-wrap">
+                <i class="fas fa-building dept-select-icon"></i>
+                <select id="dDepartment" class="drawer-select">
+                    <option value="" disabled selected>Select department…</option>
+                </select>
+            </div>
+            <span class="drawer-error" id="dDepartmentErr"></span>
+        </div>
+
+        <!-- Enrollment ID — students only -->
+        <div class="drawer-field" id="dEnrollWrap">
+            <label class="drawer-label" for="dEnrollmentId">
+                Enrollment ID
+                <span class="optional-tag">Students only</span>
+            </label>
+            <input type="text" id="dEnrollmentId" class="drawer-input"
+                   placeholder="e.g. CS2024001" maxlength="50">
+            <span class="drawer-error" id="dEnrollmentIdErr"></span>
+        </div>
+
+        <!-- Active Status -->
+        <div class="drawer-field">
+            <label class="drawer-label">Account Status</label>
+            <div class="toggle-row">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dIsActive" checked>
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                </label>
+                <div class="toggle-label-group">
+                    <span class="toggle-label-main" id="isActiveLabel">Active</span>
+                    <span class="toggle-label-sub">User can log in and use the platform</span>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /drawer-body -->
+
+    <div class="drawer-footer">
+        <button type="button" class="btn btn-outline"  id="drawerCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary"  id="drawerSaveBtn">
+            <span class="btn-text"><i class="fas fa-save"></i> Save Changes</span>
+            <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Saving…</span>
+        </button>
+    </div>
+</aside>
+
+<!-- ══ DELETE MODAL ══ -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title danger"><i class="fas fa-user-times"></i> Remove User</h2>
+            <button class="modal-close" id="deleteModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="danger-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <p><strong id="deleteUserName">This user</strong> will be permanently removed.</p>
+                    <p class="danger-note">This action cannot be undone.</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline"       id="deleteCancelBtn">Cancel</button>
+            <button class="btn btn-danger-solid"  id="deleteConfirmBtn">
+                <span class="btn-text"><i class="fas fa-trash"></i> Remove</span>
+                <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ ROLE CHANGE MODAL ══ -->
+<div class="modal" id="roleModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title" id="roleModalTitle"><i class="fas fa-user-tag"></i> Change Role</h2>
+            <button class="modal-close" id="roleModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <p id="roleModalMsg" style="color:#475569;font-size:.9375rem;line-height:1.6;margin:0;"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline"  id="roleCancelBtn">Cancel</button>
+            <button class="btn btn-primary"  id="roleConfirmBtn">
+                <span class="btn-text">Confirm</span>
+                <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/students.js"></script>
+</body>
+</html>

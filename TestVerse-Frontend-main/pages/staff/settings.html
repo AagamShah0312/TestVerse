@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings — TestVerse</title>
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/pages/staff/settings.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i><span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"  class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"      class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"   class="nav-item"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"    class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html"  class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"   class="nav-item active"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">Staff</span>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <span class="breadcrumb-item active">Settings</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <div id="alertContainer"></div>
+
+            <!-- ── Page Header ── -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title"><i class="fas fa-cog"></i> Settings</h1>
+                    <p class="page-subtitle">Manage your profile and account preferences</p>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+
+                <!-- ══ LEFT: Tab Nav ══ -->
+                <aside class="settings-nav">
+                    <button class="stab active" data-tab="profile">
+                        <i class="fas fa-user-circle"></i><span>Profile</span>
+                    </button>
+                    <button class="stab" data-tab="password">
+                        <i class="fas fa-lock"></i><span>Password</span>
+                    </button>
+                    <button class="stab" data-tab="account">
+                        <i class="fas fa-shield-alt"></i><span>Account</span>
+                    </button>
+                </aside>
+
+                <!-- ══ RIGHT: Tab Panels ══ -->
+                <div class="settings-panels">
+
+                    <!-- ── PROFILE ── -->
+                    <section class="settings-panel active" id="panelProfile">
+                        <div class="panel-header">
+                            <h2 class="panel-title"><i class="fas fa-user-circle"></i> Profile Information</h2>
+                            <p class="panel-desc">Update your display name, username and department.</p>
+                        </div>
+
+                        <!-- Avatar block -->
+                        <div class="avatar-block">
+                            <div class="avatar-wrap">
+                                <img id="profileAvatar" src="" alt="Avatar" class="profile-avatar">
+                                <div class="avatar-overlay">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                            </div>
+                            <div class="avatar-info">
+                                <span class="avatar-name"  id="avatarName">—</span>
+                                <span class="avatar-email" id="avatarEmail">—</span>
+                                <span class="role-chip"><i class="fas fa-chalkboard-teacher"></i> Staff Member</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-divider"></div>
+
+                        <!-- Read-only fields -->
+                        <div class="fields-section">
+                            <h3 class="fields-label">
+                                <i class="fas fa-lock"></i> Read-only
+                                <span class="fields-label-hint">These can only be changed by the system admin</span>
+                            </h3>
+                            <div class="fields-grid two-col">
+                                <div class="field-group">
+                                    <label class="field-label">Email Address</label>
+                                    <div class="field-readonly">
+                                        <i class="fas fa-envelope"></i>
+                                        <span id="roEmail">—</span>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-label">Role</label>
+                                    <div class="field-readonly">
+                                        <i class="fas fa-user-tag"></i>
+                                        <span>Staff</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-divider"></div>
+
+                        <!-- Editable fields -->
+                        <div class="fields-section">
+                            <h3 class="fields-label">
+                                <i class="fas fa-pen"></i> Editable
+                            </h3>
+                            <form id="profileForm" novalidate>
+                                <div class="fields-grid two-col">
+                                    <div class="field-group">
+                                        <label class="field-label" for="fName">Full Name</label>
+                                        <div class="field-input-wrap">
+                                            <i class="fas fa-user field-icon"></i>
+                                            <input type="text" id="fName" class="field-input"
+                                                   placeholder="Your full name" maxlength="120">
+                                        </div>
+                                        <span class="field-error" id="fNameErr"></span>
+                                    </div>
+                                    <div class="field-group">
+                                        <label class="field-label" for="fUsername">Username</label>
+                                        <div class="field-input-wrap">
+                                            <i class="fas fa-at field-icon"></i>
+                                            <input type="text" id="fUsername" class="field-input"
+                                                   placeholder="username" maxlength="60"
+                                                   autocomplete="username">
+                                        </div>
+                                        <span class="field-error" id="fUsernameErr"></span>
+                                    </div>
+                                    <div class="field-group">
+                                        <label class="field-label" for="fDepartment">Department</label>
+                                        <div class="field-input-wrap">
+                                            <i class="fas fa-building field-icon"></i>
+                                            <input type="text" id="fDepartment" class="field-input"
+                                                   placeholder="e.g. Computer Science" maxlength="120">
+                                        </div>
+                                        <span class="field-error" id="fDepartmentErr"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-outline" id="profileResetBtn">
+                                        <i class="fas fa-undo"></i> Reset
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="profileSaveBtn">
+                                        <span class="btn-text"><i class="fas fa-save"></i> Save Changes</span>
+                                        <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Saving…</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- ── PASSWORD ── -->
+                    <section class="settings-panel" id="panelPassword">
+                        <div class="panel-header">
+                            <h2 class="panel-title"><i class="fas fa-lock"></i> Change Password</h2>
+                            <p class="panel-desc">Choose a strong password of at least 6 characters.</p>
+                        </div>
+
+                        <!-- Strength indicator -->
+                        <div class="password-strength-bar" id="pwStrengthWrap" style="display:none;">
+                            <div class="ps-track">
+                                <div class="ps-fill" id="psFill"></div>
+                            </div>
+                            <span class="ps-label" id="psLabel">Weak</span>
+                        </div>
+
+                        <form id="passwordForm" novalidate>
+                            <div class="fields-grid one-col">
+
+                                <div class="field-group">
+                                    <label class="field-label" for="fOldPw">Current Password</label>
+                                    <div class="field-input-wrap">
+                                        <i class="fas fa-key field-icon"></i>
+                                        <input type="password" id="fOldPw" class="field-input"
+                                               placeholder="Enter current password"
+                                               autocomplete="current-password">
+                                        <button type="button" class="pw-toggle" data-target="fOldPw">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="field-error" id="fOldPwErr"></span>
+                                </div>
+
+                                <div class="field-group">
+                                    <label class="field-label" for="fNewPw">New Password</label>
+                                    <div class="field-input-wrap">
+                                        <i class="fas fa-lock field-icon"></i>
+                                        <input type="password" id="fNewPw" class="field-input"
+                                               placeholder="Min 6 characters"
+                                               autocomplete="new-password">
+                                        <button type="button" class="pw-toggle" data-target="fNewPw">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="field-error" id="fNewPwErr"></span>
+                                </div>
+
+                                <div class="field-group">
+                                    <label class="field-label" for="fConfirmPw">Confirm New Password</label>
+                                    <div class="field-input-wrap">
+                                        <i class="fas fa-lock field-icon"></i>
+                                        <input type="password" id="fConfirmPw" class="field-input"
+                                               placeholder="Repeat new password"
+                                               autocomplete="new-password">
+                                        <button type="button" class="pw-toggle" data-target="fConfirmPw">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="field-error" id="fConfirmPwErr"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Requirements checklist -->
+                            <ul class="pw-requirements">
+                                <li class="req-item" id="reqLen"><i class="fas fa-circle"></i> At least 6 characters</li>
+                                <li class="req-item" id="reqUpper"><i class="fas fa-circle"></i> One uppercase letter</li>
+                                <li class="req-item" id="reqNum"><i class="fas fa-circle"></i> One number</li>
+                                <li class="req-item" id="reqMatch"><i class="fas fa-circle"></i> Passwords match</li>
+                            </ul>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" id="pwClearBtn">
+                                    <i class="fas fa-times"></i> Clear
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="pwSaveBtn">
+                                    <span class="btn-text"><i class="fas fa-key"></i> Update Password</span>
+                                    <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Updating…</span>
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- ── ACCOUNT ── -->
+                    <section class="settings-panel" id="panelAccount">
+                        <div class="panel-header">
+                            <h2 class="panel-title"><i class="fas fa-shield-alt"></i> Account</h2>
+                            <p class="panel-desc">Session info and danger zone.</p>
+                        </div>
+
+                        <!-- Session Info -->
+                        <div class="info-card">
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-id-badge"></i> User ID</span>
+                                <span class="info-card-val mono" id="acUserId">—</span>
+                            </div>
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-user"></i> Username</span>
+                                <span class="info-card-val" id="acUsername">—</span>
+                            </div>
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-envelope"></i> Email</span>
+                                <span class="info-card-val" id="acEmail">—</span>
+                            </div>
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-user-tag"></i> Role</span>
+                                <span class="info-card-val"><span class="role-chip"><i class="fas fa-chalkboard-teacher"></i> Staff</span></span>
+                            </div>
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-building"></i> Department</span>
+                                <span class="info-card-val" id="acDept">—</span>
+                            </div>
+                            <div class="info-card-row">
+                                <span class="info-card-label"><i class="fas fa-circle"></i> Status</span>
+                                <span class="info-card-val"><span class="status-dot active"></span> Active</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-divider"></div>
+
+                        <!-- Session actions -->
+                        <div class="fields-section">
+                            <h3 class="fields-label"><i class="fas fa-sign-out-alt"></i> Session</h3>
+                            <div class="action-row">
+                                <div>
+                                    <div class="action-title">Sign out of TestVerse</div>
+                                    <div class="action-desc">Clears your session from this browser.</div>
+                                </div>
+                                <button class="btn btn-outline" id="acLogoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel-divider"></div>
+
+                        <!-- Danger Zone -->
+                        <div class="fields-section">
+                            <h3 class="fields-label danger-label">
+                                <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                            </h3>
+                            <div class="danger-card">
+                                <div class="action-row">
+                                    <div>
+                                        <div class="action-title">Clear Local Session Data</div>
+                                        <div class="action-desc">Removes all cached tokens and user info from this browser. You will be logged out.</div>
+                                    </div>
+                                    <button class="btn btn-danger" id="clearSessionBtn">
+                                        <i class="fas fa-trash-alt"></i> Clear &amp; Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div><!-- /settings-panels -->
+            </div><!-- /settings-layout -->
+
+        </main>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/settings.js"></script>
+</body>
+</html>

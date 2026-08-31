@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Results | TestVerse Student</title>
+
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core -->
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/core/layout.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/cards.css">
+    <link rel="stylesheet" href="../../css/components/badges.css">
+
+    <!-- Page -->
+    <link rel="stylesheet" href="../../css/pages/student/results.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">TestVerse</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"   class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"       class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="results.html"     class="nav-item active"><i class="fas fa-chart-bar"></i><span>My Results</span></a>
+            <a href="leaderboard.html" class="nav-item"><i class="fas fa-trophy"></i><span>Leaderboard</span></a>
+            <a href="analytics.html"   class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="profile.html"     class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user-card">
+                <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                     alt="Avatar" class="su-avatar" id="sidebarAvatar">
+                <div class="su-info">
+                    <span class="su-name" id="sidebarName">Loading…</span>
+                    <span class="su-role">Student</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN CONTENT ══════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">My Results</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="refreshBtn" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="icon-btn" id="notificationBtn" aria-label="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge hidden" id="notifBadge">0</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                         alt="Avatar" class="user-avatar" id="topbarAvatar">
+                    <div class="user-info">
+                        <span class="user-name" id="topbarName">Loading…</span>
+                        <span class="user-role">Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+
+            <div id="alertContainer"></div>
+
+            <!-- ── SUMMARY STAT CARDS ──────────────────────────────── -->
+            <section class="results-stats-grid" id="statsGrid">
+                <div class="rstat-card">
+                    <div class="rstat-icon si-primary"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="rstat-body">
+                        <span class="rstat-val" id="statTotal"><span class="shimmer-line"></span></span>
+                        <span class="rstat-lbl">Total Attempted</span>
+                    </div>
+                </div>
+                <div class="rstat-card">
+                    <div class="rstat-icon si-success"><i class="fas fa-check-circle"></i></div>
+                    <div class="rstat-body">
+                        <span class="rstat-val" id="statPassed"><span class="shimmer-line"></span></span>
+                        <span class="rstat-lbl">Passed</span>
+                    </div>
+                </div>
+                <div class="rstat-card">
+                    <div class="rstat-icon si-danger"><i class="fas fa-times-circle"></i></div>
+                    <div class="rstat-body">
+                        <span class="rstat-val" id="statFailed"><span class="shimmer-line"></span></span>
+                        <span class="rstat-lbl">Failed</span>
+                    </div>
+                </div>
+                <div class="rstat-card">
+                    <div class="rstat-icon si-info"><i class="fas fa-percentage"></i></div>
+                    <div class="rstat-body">
+                        <span class="rstat-val" id="statAvg"><span class="shimmer-line"></span></span>
+                        <span class="rstat-lbl">Avg Score</span>
+                    </div>
+                </div>
+                <div class="rstat-card">
+                    <div class="rstat-icon si-violet"><i class="fas fa-trophy"></i></div>
+                    <div class="rstat-body">
+                        <span class="rstat-val" id="statBest"><span class="shimmer-line"></span></span>
+                        <span class="rstat-lbl">Best Score</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── FILTER BAR ──────────────────────────────────────── -->
+            <div class="results-filter-bar">
+                <div class="search-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input"
+                           placeholder="Search by exam name…" autocomplete="off">
+                    <button class="search-clear hidden" id="searchClear">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="filter-selects">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Results</option>
+                        <option value="pass">Passed</option>
+                        <option value="fail">Failed</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="date_desc">Latest First</option>
+                        <option value="date_asc">Oldest First</option>
+                        <option value="score_desc">Highest Score</option>
+                        <option value="score_asc">Lowest Score</option>
+                        <option value="name_asc">Name A–Z</option>
+                    </select>
+                </div>
+                <div class="results-info-wrap">
+                    <span id="resultsInfoText"></span>
+                    <button class="clear-filters-btn hidden" id="clearFiltersBtn">
+                        <i class="fas fa-times-circle"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── LOADING ─────────────────────────────────────────── -->
+            <div class="loading-state" id="loadingState">
+                <div class="spinner"></div>
+                <p>Loading your results…</p>
+            </div>
+
+            <!-- ── EMPTY ───────────────────────────────────────────── -->
+            <div class="empty-state hidden" id="emptyState">
+                <i class="fas fa-chart-bar"></i>
+                <p id="emptyTitle">No Results Yet</p>
+                <p class="empty-sub" id="emptySub">You haven't attempted any exams yet.</p>
+                <a href="exams.html" class="btn btn-primary btn-sm" id="emptyActionBtn">
+                    <i class="fas fa-file-alt"></i> Browse Exams
+                </a>
+            </div>
+
+            <!-- ── RESULTS LIST ────────────────────────────────────── -->
+            <div class="results-list hidden" id="resultsList"></div>
+
+            <!-- ── PAGINATION ──────────────────────────────────────── -->
+            <div class="results-pagination hidden" id="pagination">
+                <button class="page-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Prev
+                </button>
+                <span class="page-info" id="pageInfo">Page 1</span>
+                <button class="page-btn" id="nextBtn" disabled>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </div><!-- /page-content -->
+    </main>
+
+    <!-- ══ RESULT DETAIL MODAL ════════════════════════════════════════ -->
+    <div class="tv-modal" id="detailModal">
+        <div class="tv-modal-dialog tv-modal-xl">
+            <div class="tv-modal-header">
+                <h2 class="tv-modal-title" id="modalExamTitle">
+                    <i class="fas fa-chart-bar"></i> Result Detail
+                </h2>
+                <button class="tv-modal-close" id="detailModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tv-modal-body" id="detailModalBody">
+                <div class="loading-state" style="padding:2rem 0;">
+                    <div class="spinner"></div><p>Loading…</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/pages/student/results.js"></script>
+</body>
+</html>

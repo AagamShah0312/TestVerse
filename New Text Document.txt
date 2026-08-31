@@ -1,0 +1,1 @@
+WHEN EDITING ANSWERS OF QUESTION A PUT ERROR COMES AND DEFAULT ANSWER ALWAYS BECOMES D whatever i set while creating exams and sometimes on hoverring few buttons they get changed to white

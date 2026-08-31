@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Exam - University Exam Portal">
+  <title>Exam - University Exam Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../../css/styles.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="../../css/pages/student/exam-taking.css">
+  <link rel="stylesheet" href="../../css/pages/student/exam-taking-monaco.css">
+  
+  <!-- Monaco Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+</head>
+<body class="exam-mode">
+  <!-- Exam Header -->
+  <header class="exam-header">
+    <div class="exam-title-bar">
+      <h1 id="exam-title">Loading...</h1>
+      <span class="badge badge-success">In Progress</span>
+    </div>
+    
+    <div class="timer-container">
+      <div class="auto-save-indicator" id="auto-save-status">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+        <span>Auto-save enabled</span>
+      </div>
+      
+      <div class="exam-timer" id="timer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span id="timer-display">--:--</span>
+      </div>
+    </div>
+  </header>
+  
+  <div class="exam-layout">
+    <!-- Main Question Area -->
+    <main class="exam-main">
+      <div class="question-content" id="question-container">
+        <div class="question-card skeleton" style="height: 400px;"></div>
+      </div>
+      
+      <div class="question-actions" id="question-actions" style="display: none;">
+        <button class="btn btn-secondary" id="prev-btn" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Previous
+        </button>
+        <button class="btn btn-primary" id="next-btn">
+          Next
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </main>
+    
+    <!-- Sidebar -->
+    <aside class="exam-sidebar" id="exam-sidebar">
+      <div class="nav-section-title">Question Navigator</div>
+      <div class="question-navigator" id="question-nav">
+        <!-- Filled by JS -->
+      </div>
+      
+      <div class="nav-legend">
+        <div class="legend-item">
+          <div class="legend-dot current"></div>
+          <span>Current</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot answered"></div>
+          <span>Answered</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot unanswered"></div>
+          <span>Not Answered</span>
+        </div>
+      </div>
+      
+      <div class="submit-section">
+        <p class="submit-info">
+          <strong id="answered-count">0</strong> of <strong id="total-count">0</strong> questions answered
+        </p>
+        <button class="btn btn-success w-full" id="submit-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Submit Exam
+        </button>
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Core Libraries -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  
+  <!-- Exam-specific Libraries -->
+  <script src="../../js/exam-security.js"></script>
+  <script src="../../js/monaco-config.js"></script>
+  <script src="../../js/exam-taking-logic.js"></script>
+</body>
+</html>

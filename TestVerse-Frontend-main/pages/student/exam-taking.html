@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam | TestVerse</title>
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/pages/student/exam-taking.css">
+    <!-- Monaco Editor AMD loader — loaded ONCE here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+</head>
+<body>
+
+<!-- ══ CRITICAL ERROR OVERLAY ══════════════════════════════════════ -->
+<div id="fatalOverlay" class="fatal-overlay hidden">
+    <div class="fatal-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h2 id="fatalTitle">Error</h2>
+        <p  id="fatalMsg">Something went wrong.</p>
+        <a href="exams.html" class="btn btn-primary">← Back to Exams</a>
+    </div>
+</div>
+
+<!-- ══ SUBMISSION OVERLAY ════════════════════════════════════════════ -->
+<div id="submitOverlay" class="submit-overlay hidden">
+    <div class="submit-box">
+        <div class="submit-spinner"></div>
+        <p id="submitMsg">Submitting your exam…</p>
+    </div>
+</div>
+
+<!-- ══ CONFIRM SUBMIT MODAL ══════════════════════════════════════════ -->
+<div id="confirmModal" class="tv-modal">
+    <div class="tv-modal-dialog tv-modal-sm">
+        <div class="tv-modal-header">
+            <h2 class="tv-modal-title"><i class="fas fa-paper-plane"></i> Submit Exam?</h2>
+            <button class="tv-modal-close" id="confirmModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="tv-modal-body">
+            <div class="confirm-stats">
+                <div class="cs-item">
+                    <i class="fas fa-check-circle cs-icon answered"></i>
+                    <span id="cntAnswered">0</span>
+                    <label>Answered</label>
+                </div>
+                <div class="cs-item">
+                    <i class="fas fa-circle-notch cs-icon unanswered"></i>
+                    <span id="cntUnanswered">0</span>
+                    <label>Unanswered</label>
+                </div>
+                <div class="cs-item">
+                    <i class="fas fa-flag cs-icon flagged"></i>
+                    <span id="cntFlagged">0</span>
+                    <label>Flagged</label>
+                </div>
+            </div>
+            <p class="confirm-warn">
+                <i class="fas fa-info-circle"></i>
+                Once submitted, you cannot change your answers.
+            </p>
+        </div>
+        <div class="tv-modal-footer">
+            <button class="btn btn-outline btn-sm" id="confirmCancelBtn">Review More</button>
+            <button class="btn btn-submit btn-sm" id="confirmSubmitBtn">
+                <i class="fas fa-paper-plane"></i> Submit Now
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ TIME WARNING TOAST ═════════════════════════════════════════════ -->
+<div id="timeToast" class="time-toast hidden">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span id="timeToastMsg">5 minutes remaining!</span>
+    <button id="timeToastClose"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- ══ SAVE STATUS TOAST ══════════════════════════════════════════════ -->
+<div id="saveToast" class="save-toast hidden">
+    <i class="fas fa-check-circle"></i>
+    <span id="saveToastMsg">Saved</span>
+</div>
+
+<!-- ══ OFFLINE BANNER ════════════════════════════════════════════════ -->
+<div id="offlineBanner" class="offline-banner hidden">
+    <i class="fas fa-wifi-slash"></i>
+    <span>No internet — answers are saved locally and will sync when reconnected.</span>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MAIN EXAM SHELL
+════════════════════════════════════════════════════════════════════ -->
+<div id="examShell" class="exam-shell hidden">
+
+    <!-- ══ TOPBAR ══════════════════════════════════════════════════ -->
+    <header class="exam-topbar">
+        <div class="et-left">
+            <div class="et-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>TestVerse</span>
+            </div>
+            <div class="et-exam-info">
+                <span class="et-exam-title" id="examTitle">Loading…</span>
+                <span class="et-exam-type"  id="examType"></span>
+            </div>
+        </div>
+        <div class="et-center">
+            <div class="exam-timer-wrap" id="timerWrap">
+                <i class="fas fa-clock"></i>
+                <span class="exam-timer" id="timerDisplay">--:--</span>
+                <span class="timer-label">remaining</span>
+            </div>
+        </div>
+        <div class="et-right">
+            <div class="et-save-status" id="saveStatus">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span id="saveStatusText">Not saved</span>
+            </div>
+            <button class="btn btn-submit" id="topbarSubmitBtn">
+                <i class="fas fa-paper-plane"></i> Submit
+            </button>
+        </div>
+    </header>
+
+    <!-- ══ BODY ═════════════════════════════════════════════════════ -->
+    <div class="exam-body">
+
+        <!-- ── QUESTION NAVIGATOR SIDEBAR ─────────────────────────── -->
+        <aside class="qnav-sidebar" id="qnavSidebar">
+            <div class="qnav-progress">
+                <div class="qnav-prog-labels">
+                    <span id="progAnswered">0 answered</span>
+                    <span id="progTotal">0 total</span>
+                </div>
+                <div class="qnav-prog-track">
+                    <div class="qnav-prog-fill" id="progFill" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="qnav-legend">
+                <span class="qnav-legend-item"><span class="qn-bubble qn-answered"></span> Answered</span>
+                <span class="qnav-legend-item"><span class="qn-bubble qn-current"></span> Current</span>
+                <span class="qnav-legend-item"><span class="qn-bubble qn-flagged"></span> Flagged</span>
+                <span class="qnav-legend-item"><span class="qn-bubble qn-unanswered"></span> Not visited</span>
+            </div>
+            <div class="qnav-grid" id="qnavGrid"></div>
+            <div class="qnav-sections" id="qnavSections"></div>
+        </aside>
+
+        <!-- ── QUESTION AREA ──────────────────────────────────────── -->
+        <main class="question-area" id="questionArea">
+
+            <div class="qa-loading" id="qaLoading">
+                <div class="et-spinner"></div>
+                <p>Loading questions…</p>
+            </div>
+
+            <div class="question-card hidden" id="questionCard">
+
+                <!-- Q Header -->
+                <div class="qc-header">
+                    <div class="qc-header-left">
+                        <span class="qc-num" id="qcNum">Q1</span>
+                        <span class="qc-type-badge" id="qcTypeBadge"></span>
+                        <span class="qc-marks" id="qcMarks"></span>
+                    </div>
+                    <div class="qc-header-right">
+                        <button class="flag-btn" id="flagBtn" title="Flag for review">
+                            <i class="fas fa-flag"></i>
+                            <span id="flagBtnText">Flag</span>
+                        </button>
+                        <span class="qc-section" id="qcSection"></span>
+                    </div>
+                </div>
+
+                <!-- Q Text -->
+                <div class="qc-body">
+                    <div class="q-text" id="qText"></div>
+                    <div class="q-image-wrap hidden" id="qImageWrap">
+                        <img id="qImage" alt="Question image" class="q-image">
+                    </div>
+                </div>
+
+                <!-- ══ ANSWER AREAS — all start hidden, JS shows one ══ -->
+
+                <!-- MCQ -->
+                <div class="answer-area" id="answerMcq" style="display:none;">
+                    <div class="mcq-options" id="mcqOptions"></div>
+                </div>
+
+                <!-- True/False -->
+                <div class="answer-area" id="answerTf" style="display:none;">
+                    <div class="tf-options">
+                        <button class="tf-btn" data-val="true"  id="tfTrue">
+                            <i class="fas fa-check"></i> True
+                        </button>
+                        <button class="tf-btn" data-val="false" id="tfFalse">
+                            <i class="fas fa-times"></i> False
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Short Answer / Descriptive -->
+                <div class="answer-area" id="answerText" style="display:none;">
+                    <textarea
+                        id="textAnswer"
+                        class="text-answer"
+                        placeholder="Type your answer here…"
+                        rows="6"
+                    ></textarea>
+                    <div class="text-answer-footer">
+                        <span class="text-char-count" id="charCount">0 chars</span>
+                    </div>
+                </div>
+
+                <!-- Coding -->
+                <div class="answer-area" id="answerCode" style="display:none;">
+                    <div class="code-header">
+                        <label class="code-lang-label">Language:</label>
+                        <select id="codeLangSelect" class="code-lang-select"></select>
+                        <button class="btn-reset-code" id="resetCodeBtn" title="Reset to starter code">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                        <button class="btn-fullscreen-code" id="fullscreenCodeBtn" title="Fullscreen editor">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div id="monacoEditor" class="monaco-editor-wrap"></div>
+                    <div class="code-footer">
+                        <span class="code-hint"><i class="fas fa-info-circle"></i> Ctrl+S to save</span>
+                        <span class="code-saved" id="codeSavedIndicator"></span>
+                    </div>
+                </div>
+
+                <!-- Q Footer -->
+                <div class="qc-footer">
+                    <div class="qc-footer-left">
+                        <button class="btn btn-outline btn-sm" id="clearAnswerBtn">
+                            <i class="fas fa-eraser"></i> Clear
+                        </button>
+                    </div>
+                    <div class="qc-footer-right">
+                        <button class="btn btn-outline btn-sm" id="prevQBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Prev
+                        </button>
+                        <button class="btn btn-primary btn-sm" id="nextQBtn">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /question-card -->
+        </main>
+    </div><!-- /exam-body -->
+</div><!-- /exam-shell -->
+
+<!-- ══ FULLSCREEN CODE EDITOR OVERLAY ════════════════════════════════ -->
+<div id="fsCodeOverlay" class="fs-code-overlay hidden">
+    <div class="fs-code-header">
+        <span id="fsCodeTitle">Code Editor</span>
+        <div class="fs-code-actions">
+            <select id="fsLangSelect" class="code-lang-select"></select>
+            <button id="fsResetBtn" class="btn-reset-code"><i class="fas fa-undo"></i> Reset</button>
+            <button id="fsCloseBtn" class="btn-outline btn-sm"><i class="fas fa-compress"></i> Exit Fullscreen</button>
+        </div>
+    </div>
+    <div id="fsMonacoEditor" class="fs-monaco-wrap"></div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/pages/student/exam-taking.js"></script>
+</body>
+</html>

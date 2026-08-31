@@ -1,0 +1,438 @@
+/* =====================================================
+   BADGE COMPONENT SYSTEM
+   Status badges, labels, counts, pills
+   ===================================================== */
+
+/* ==================== BASE BADGE ==================== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* ==================== COLOR VARIANTS ==================== */
+/* Primary */
+.badge-primary {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* Secondary */
+.badge-secondary {
+    background: var(--color-bg-main);
+    color: var(--color-text-secondary);
+}
+
+/* Success */
+.badge-success {
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+}
+
+/* Warning */
+.badge-warning {
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
+}
+
+/* Danger */
+.badge-danger {
+    background: var(--color-danger-light);
+    color: var(--color-danger-dark);
+}
+
+/* Info */
+.badge-info {
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
+}
+
+/* ==================== SOLID VARIANTS ==================== */
+.badge-solid.badge-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.badge-solid.badge-secondary {
+    background: var(--color-text-secondary);
+    color: white;
+}
+
+.badge-solid.badge-success {
+    background: var(--color-success);
+    color: white;
+}
+
+.badge-solid.badge-warning {
+    background: var(--color-warning);
+    color: white;
+}
+
+.badge-solid.badge-danger {
+    background: var(--color-danger);
+    color: white;
+}
+
+.badge-solid.badge-info {
+    background: var(--color-info);
+    color: white;
+}
+
+/* ==================== OUTLINE VARIANTS ==================== */
+.badge-outline {
+    background: transparent;
+    border: 2px solid;
+}
+
+.badge-outline.badge-primary {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.badge-outline.badge-secondary {
+    border-color: var(--color-text-secondary);
+    color: var(--color-text-secondary);
+}
+
+.badge-outline.badge-success {
+    border-color: var(--color-success);
+    color: var(--color-success-dark);
+}
+
+.badge-outline.badge-warning {
+    border-color: var(--color-warning);
+    color: var(--color-warning-dark);
+}
+
+.badge-outline.badge-danger {
+    border-color: var(--color-danger);
+    color: var(--color-danger-dark);
+}
+
+.badge-outline.badge-info {
+    border-color: var(--color-info);
+    color: var(--color-info-dark);
+}
+
+/* ==================== SIZE VARIANTS ==================== */
+.badge-xs {
+    padding: 2px 8px;
+    font-size: 10px;
+}
+
+.badge-sm {
+    padding: 4px 10px;
+    font-size: var(--font-size-xs);
+}
+
+.badge-lg {
+    padding: 6px 16px;
+    font-size: var(--font-size-sm);
+}
+
+.badge-xl {
+    padding: 8px 20px;
+    font-size: var(--font-size-base);
+}
+
+/* ==================== SHAPE VARIANTS ==================== */
+.badge-rounded {
+    border-radius: var(--radius-sm);
+}
+
+.badge-square {
+    border-radius: 4px;
+}
+
+/* ==================== STATUS BADGES ==================== */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.badge-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.badge-success .badge-status-dot {
+    background: var(--color-success);
+}
+
+.badge-warning .badge-status-dot {
+    background: var(--color-warning);
+}
+
+.badge-danger .badge-status-dot {
+    background: var(--color-danger);
+}
+
+.badge-info .badge-status-dot {
+    background: var(--color-info);
+}
+
+/* ==================== EXAM STATUS BADGES ==================== */
+.badge-upcoming {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.badge-live {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.badge-completed {
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+}
+
+.badge-scheduled {
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
+}
+
+.badge-draft {
+    background: var(--color-bg-main);
+    color: var(--color-text-disabled);
+    border: 1px dashed var(--color-border-dark);
+}
+
+.badge-cancelled {
+    background: var(--color-danger-light);
+    color: var(--color-danger-dark);
+    text-decoration: line-through;
+}
+
+/* ==================== COUNT BADGE ==================== */
+.badge-count {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-danger);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+}
+
+/* ==================== NOTIFICATION BADGE ==================== */
+.notification-badge {
+    position: relative;
+}
+
+.notification-badge::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: var(--color-danger);
+    color: white;
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+.notification-badge.no-count::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    min-width: auto;
+    padding: 0;
+}
+
+/* ==================== ICON BADGES ==================== */
+.badge-icon {
+    padding: 6px 12px;
+}
+
+.badge-icon-only {
+    padding: 6px;
+    aspect-ratio: 1;
+}
+
+.badge .icon {
+    font-size: 14px;
+}
+
+/* ==================== CLOSEABLE BADGE ==================== */
+.badge-closeable {
+    padding-right: 8px;
+}
+
+.badge-close {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: var(--space-xs);
+    color: inherit;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity var(--transition-base);
+}
+
+.badge-close:hover {
+    opacity: 1;
+}
+
+/* ==================== BADGE GROUP ==================== */
+.badge-group {
+    display: inline-flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+/* ==================== INTERACTIVE BADGES ==================== */
+.badge-interactive {
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.badge-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.badge-interactive.badge-primary:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.badge-interactive.badge-success:hover {
+    background: var(--color-success);
+    color: white;
+}
+
+.badge-interactive.badge-warning:hover {
+    background: var(--color-warning);
+    color: white;
+}
+
+.badge-interactive.badge-danger:hover {
+    background: var(--color-danger);
+    color: white;
+}
+
+/* ==================== GRADE/SCORE BADGES ==================== */
+.badge-grade {
+    padding: 8px 16px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+}
+
+.badge-grade-a {
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+}
+
+.badge-grade-b {
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
+}
+
+.badge-grade-c {
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
+}
+
+.badge-grade-f {
+    background: var(--color-danger-light);
+    color: var(--color-danger-dark);
+}
+
+/* ==================== PERCENTAGE BADGE ==================== */
+.badge-percentage {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+}
+
+/* ==================== BADGE WITH AVATAR ==================== */
+.badge-avatar {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 2px 12px 2px 2px;
+}
+
+.badge-avatar-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ==================== LOADING BADGE ==================== */
+.badge-loading {
+    position: relative;
+    color: transparent;
+}
+
+.badge-loading::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    margin-left: -6px;
+    margin-top: -6px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+/* ==================== PREMIUM/FEATURED BADGE ==================== */
+.badge-premium {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    font-weight: var(--font-weight-bold);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.badge-featured {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    font-weight: var(--font-weight-bold);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .badge {
+        font-size: 10px;
+        padding: 3px 10px;
+    }
+    
+    .badge-lg {
+        font-size: var(--font-size-xs);
+        padding: 5px 14px;
+    }
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard | TestVerse</title>
+
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core -->
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/core/layout.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/cards.css">
+    <link rel="stylesheet" href="../../css/components/badges.css">
+
+    <!-- Page -->
+    <link rel="stylesheet" href="../../css/pages/student/leaderboard.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">TestVerse</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"   class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"       class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="results.html"     class="nav-item"><i class="fas fa-chart-bar"></i><span>My Results</span></a>
+            <a href="leaderboard.html" class="nav-item active"><i class="fas fa-trophy"></i><span>Leaderboard</span></a>
+            <a href="analytics.html"   class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="profile.html"     class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user-card">
+                <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                     alt="Avatar" class="su-avatar" id="sidebarAvatar">
+                <div class="su-info">
+                    <span class="su-name" id="sidebarName">Loading…</span>
+                    <span class="su-role">Student</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══════════════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h1 class="page-title">Leaderboard</h1>
+                    <p class="page-subtitle" id="lbSubtitle">Top performers on TestVerse</p>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="refreshBtn" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="icon-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge hidden" id="notifBadge">0</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                         alt="Avatar" class="user-avatar" id="topbarAvatar">
+                    <div class="user-info">
+                        <span class="user-name" id="topbarName">Loading…</span>
+                        <span class="user-role">Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- ── YOUR RANK BANNER ───────────────────────────────── -->
+            <div class="my-rank-banner hidden" id="myRankBanner">
+                <div class="mrb-left">
+                    <img id="myRankAvatar" src="" alt="" class="mrb-avatar">
+                    <div class="mrb-info">
+                        <span class="mrb-name" id="myRankName">You</span>
+                        <span class="mrb-label">Your current rank</span>
+                    </div>
+                </div>
+                <div class="mrb-stats">
+                    <div class="mrb-stat">
+                        <span class="mrb-stat-val" id="myRankNum">—</span>
+                        <span class="mrb-stat-lbl">Rank</span>
+                    </div>
+                    <div class="mrb-stat">
+                        <span class="mrb-stat-val" id="myRankScore">—</span>
+                        <span class="mrb-stat-lbl">Avg Score</span>
+                    </div>
+                    <div class="mrb-stat">
+                        <span class="mrb-stat-val" id="myRankTotal">—</span>
+                        <span class="mrb-stat-lbl">Exams</span>
+                    </div>
+                </div>
+                <div class="mrb-badge-wrap">
+                    <span class="mrb-badge" id="myRankBadge"></span>
+                </div>
+            </div>
+
+            <!-- ── PODIUM (Top 3) ─────────────────────────────────── -->
+            <div class="podium-wrap" id="podiumWrap">
+                <!-- Skeleton while loading -->
+                <div class="podium-skeleton">
+                    <div class="pod-skel silver"></div>
+                    <div class="pod-skel gold"></div>
+                    <div class="pod-skel bronze"></div>
+                </div>
+            </div>
+
+            <!-- ── FILTER BAR ─────────────────────────────────────── -->
+            <div class="lb-filter-bar">
+                <div class="search-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input"
+                           placeholder="Search student…" autocomplete="off">
+                    <button class="search-clear hidden" id="searchClear">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="lb-tabs" id="lbTabs">
+                    <button class="lb-tab active" data-tab="all">
+                        <i class="fas fa-globe"></i> All Time
+                    </button>
+                    <button class="lb-tab" data-tab="week">
+                        <i class="fas fa-calendar-week"></i> This Week
+                    </button>
+                    <button class="lb-tab" data-tab="month">
+                        <i class="fas fa-calendar-alt"></i> This Month
+                    </button>
+                </div>
+                <span class="lb-count-txt" id="lbCountTxt"></span>
+            </div>
+
+            <!-- ── LOADING ─────────────────────────────────────────── -->
+            <div class="lb-loading" id="lbLoading">
+                <div class="spinner"></div>
+                <p>Loading leaderboard…</p>
+            </div>
+
+            <!-- ── EMPTY ───────────────────────────────────────────── -->
+            <div class="lb-empty hidden" id="lbEmpty">
+                <i class="fas fa-trophy"></i>
+                <p>No leaderboard data yet</p>
+                <span>Be the first to complete an exam!</span>
+                <a href="exams.html" class="btn-primary-sm">
+                    <i class="fas fa-file-alt"></i> Browse Exams
+                </a>
+            </div>
+
+            <!-- ── MAIN LEADERBOARD TABLE ──────────────────────────── -->
+            <div class="lb-table-card hidden" id="lbTableCard">
+
+                <!-- Column headers -->
+                <div class="lb-table-header">
+                    <span class="lbh-rank">Rank</span>
+                    <span class="lbh-student">Student</span>
+                    <span class="lbh-score">Avg Score</span>
+                    <span class="lbh-exams">Exams</span>
+                    <span class="lbh-best">Best Score</span>
+                    <span class="lbh-bar">Progress</span>
+                </div>
+
+                <!-- Rows injected by JS -->
+                <div class="lb-rows" id="lbRows"></div>
+
+                <!-- Pagination -->
+                <div class="lb-pagination hidden" id="lbPagination">
+                    <button class="page-btn" id="prevBtn" disabled>
+                        <i class="fas fa-chevron-left"></i> Prev
+                    </button>
+                    <span class="page-info" id="pageInfo">Page 1</span>
+                    <button class="page-btn" id="nextBtn">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /page-content -->
+    </main>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/pages/student/leaderboard.js"></script>
+</body>
+</html>

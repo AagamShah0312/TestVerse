@@ -1,0 +1,311 @@
+/**
+ * Auth Pages Styles (Login, Register)
+ * Shared styles for authentication pages
+ */
+
+/* ============ Auth Page Layout ============ */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 100% 100% at 0% 0%, rgba(99, 102, 241, 0.2), transparent 50%),
+        radial-gradient(ellipse 80% 80% at 100% 100%, rgba(139, 92, 246, 0.15), transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Register page uses different gradient direction */
+.auth-page.register .auth-bg {
+    background:
+        radial-gradient(ellipse 100% 100% at 100% 0%, rgba(139, 92, 246, 0.2), transparent 50%),
+        radial-gradient(ellipse 80% 80% at 0% 100%, rgba(99, 102, 241, 0.15), transparent 50%);
+}
+
+/* ============ Auth Card ============ */
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: rgba(26, 26, 46, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    position: relative;
+    animation: fadeInUp 0.6s ease;
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    z-index: 10;
+}
+
+/* Register card is wider */
+.auth-page.register .auth-card {
+    max-width: 520px;
+    padding: var(--space-12);
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+}
+
+/* ============ Auth Logo ============ */
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+}
+
+.auth-page.register .auth-logo {
+    margin-bottom: var(--space-6);
+}
+
+.auth-logo-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-logo-text {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+}
+
+/* ============ Auth Title ============ */
+
+.auth-title {
+    text-align: center;
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+.auth-page.register .auth-subtitle {
+    margin-bottom: var(--space-6);
+}
+
+/* ============ Form Input with Icon ============ */
+
+.form-input-icon {
+    position: relative;
+}
+
+.form-input-icon svg {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--text-tertiary);
+}
+
+.form-input-icon input {
+    padding-left: var(--space-12);
+}
+
+/* ============ Password Toggle ============ */
+
+.password-toggle {
+    position: absolute;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    color: var(--text-tertiary);
+    padding: var(--space-1);
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: var(--text-primary);
+}
+
+/* ============ Form Elements ============ */
+
+.form-footer {
+    text-align: center;
+    margin-top: var(--space-6);
+    color: var(--text-secondary);
+}
+
+.form-footer a {
+    color: var(--primary-400);
+    font-weight: var(--font-medium);
+}
+
+.form-remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    font-size: var(--text-sm);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    color: var(--text-tertiary);
+    font-size: var(--text-sm);
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-primary);
+}
+
+/* ============ Back Link ============ */
+
+.back-link {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    z-index: 100;
+    cursor: pointer;
+    pointer-events: auto;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-2px);
+}
+
+.back-link:focus {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+}
+
+.back-link svg {
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover svg {
+    transform: translateX(-2px);
+}
+
+/* ============ Form Row (Register) ============ */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+/* ============ Role Selector (Register) ============ */
+
+.role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.role-option {
+    position: relative;
+}
+
+.role-option input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.role-card {
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.role-option input:checked+.role-card {
+    border-color: var(--primary-500);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.role-card:hover {
+    border-color: var(--primary-400);
+}
+
+.role-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--space-2);
+    color: var(--primary-400);
+}
+
+.role-title {
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+}
+
+.role-desc {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+}
+
+/* ============ Password Requirements (Register) ============ */
+
+.password-requirements {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    margin-top: var(--space-2);
+}
+
+/* ============ Responsive ============ */
+
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

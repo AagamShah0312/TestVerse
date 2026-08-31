@@ -1,0 +1,520 @@
+/* =====================================================
+   TABLE COMPONENT SYSTEM
+   Data tables for results, students, exams management
+   ===================================================== */
+
+/* ==================== BASE TABLE ==================== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+
+/* ==================== TABLE HEAD ==================== */
+.table thead {
+    background: var(--color-bg-main);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.table thead th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    font-size: var(--font-size-sm);
+}
+
+.table thead th:first-child {
+    border-top-left-radius: var(--radius-lg);
+}
+
+.table thead th:last-child {
+    border-top-right-radius: var(--radius-lg);
+}
+
+/* Sortable columns */
+.table thead th.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 32px;
+}
+
+.table thead th.sortable:hover {
+    background: var(--color-border);
+}
+
+.table thead th.sortable::after {
+    content: '↕';
+    position: absolute;
+    right: 12px;
+    color: var(--color-text-disabled);
+    font-size: 12px;
+}
+
+.table thead th.sorted-asc::after {
+    content: '↑';
+    color: var(--color-primary);
+}
+
+.table thead th.sorted-desc::after {
+    content: '↓';
+    color: var(--color-primary);
+}
+
+/* ==================== TABLE BODY ==================== */
+.table tbody tr {
+    border-bottom: 1px solid var(--color-border);
+    transition: background var(--transition-base);
+}
+
+.table tbody tr:hover {
+    background: var(--color-bg-hover);
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody td {
+    padding: var(--space-md) var(--space-lg);
+    color: var(--color-text-secondary);
+    vertical-align: middle;
+}
+
+/* ==================== TABLE VARIANTS ==================== */
+/* Striped rows */
+.table-striped tbody tr:nth-child(even) {
+    background: var(--color-bg-main);
+}
+
+.table-striped tbody tr:nth-child(even):hover {
+    background: var(--color-bg-hover);
+}
+
+/* Bordered table */
+.table-bordered {
+    border: 1px solid var(--color-border);
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid var(--color-border);
+}
+
+/* Compact table */
+.table-compact tbody td,
+.table-compact thead th {
+    padding: var(--space-sm) var(--space-md);
+}
+
+/* Spacious table */
+.table-spacious tbody td,
+.table-spacious thead th {
+    padding: var(--space-lg) var(--space-xl);
+}
+
+/* ==================== TABLE CELL TYPES ==================== */
+/* Numeric cells (right-aligned) */
+.table td.cell-numeric,
+.table th.cell-numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Center-aligned cells */
+.table td.cell-center,
+.table th.cell-center {
+    text-align: center;
+}
+
+/* Bold cells */
+.table td.cell-bold {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+/* Highlighted cells */
+.table td.cell-highlight {
+    background: var(--color-primary-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ==================== ROW STATES ==================== */
+.table tbody tr.row-selected {
+    background: var(--color-primary-light);
+}
+
+.table tbody tr.row-success {
+    background: var(--color-success-light);
+}
+
+.table tbody tr.row-warning {
+    background: var(--color-warning-light);
+}
+
+.table tbody tr.row-danger {
+    background: var(--color-danger-light);
+}
+
+.table tbody tr.row-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.table tbody tr.row-disabled:hover {
+    background: transparent;
+}
+
+/* ==================== TABLE ACTIONS ==================== */
+.table-actions {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.table-action-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.table-action-btn:hover {
+    background: var(--color-bg-main);
+    color: var(--color-primary);
+}
+
+.table-action-btn.danger:hover {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.table-action-btn.success:hover {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+/* ==================== TABLE HEADER CONTROLS ==================== */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+    background: white;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.table-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.table-controls {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.table-search {
+    position: relative;
+}
+
+.table-search-input {
+    padding: 8px 36px 8px 12px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    min-width: 240px;
+}
+
+.table-search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-disabled);
+}
+
+/* ==================== TABLE FOOTER / PAGINATION ==================== */
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    background: white;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.table-info {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.table-pagination {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    border: 2px solid var(--color-border);
+    background: white;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    min-width: 36px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.pagination-btn.active {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== CHECKBOX COLUMN ==================== */
+.table-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.table thead th.checkbox-col,
+.table tbody td.checkbox-col {
+    width: 48px;
+    padding: var(--space-md);
+}
+
+/* ==================== EXPANDABLE ROWS ==================== */
+.table tbody tr.expandable {
+    cursor: pointer;
+}
+
+.table tbody tr.expandable td:first-child::before {
+    content: '▶';
+    display: inline-block;
+    margin-right: var(--space-sm);
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    transition: transform var(--transition-base);
+}
+
+.table tbody tr.expandable.expanded td:first-child::before {
+    transform: rotate(90deg);
+}
+
+.table tbody tr.expanded-content {
+    display: none;
+    background: var(--color-bg-main);
+}
+
+.table tbody tr.expandable.expanded + tr.expanded-content {
+    display: table-row;
+}
+
+.table tbody tr.expanded-content td {
+    padding: var(--space-lg);
+}
+
+/* ==================== EMPTY STATE ==================== */
+.table-empty {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+    color: var(--color-text-secondary);
+}
+
+.table-empty-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+}
+
+.table-empty-text {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-lg);
+}
+
+/* ==================== LOADING STATE ==================== */
+.table-loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.table-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* ==================== AVATAR IN TABLE ==================== */
+.table-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: var(--space-sm);
+}
+
+.table-avatar-text {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-xs);
+    margin-right: var(--space-sm);
+}
+
+/* ==================== STATUS INDICATOR ==================== */
+.table-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.table-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.table-status-dot.success {
+    background: var(--color-success);
+}
+
+.table-status-dot.warning {
+    background: var(--color-warning);
+}
+
+.table-status-dot.danger {
+    background: var(--color-danger);
+}
+
+.table-status-dot.info {
+    background: var(--color-info);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .table-search-input {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Card layout for mobile */
+    .table-responsive-card {
+        display: none;
+    }
+    
+    .table-cards {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .table-card {
+        background: white;
+        padding: var(--space-md);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .table-card-row {
+        display: flex;
+        justify-content: space-between;
+        padding: var(--space-sm) 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .table-card-row:last-child {
+        border-bottom: none;
+    }
+    
+    .table-card-label {
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-xs);
+    }
+    
+    .table-card-value {
+        color: var(--color-text-primary);
+        font-size: var(--font-size-sm);
+        text-align: right;
+    }
+    
+    .table-header {
+        flex-direction: column;
+        gap: var(--space-md);
+        align-items: stretch;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .table-search-input {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .table-footer {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .table-pagination {
+        width: 100%;
+        justify-content: center;
+    }
+}

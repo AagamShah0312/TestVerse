@@ -1,0 +1,33 @@
+/* =====================================================
+   TESTVERSE - MASTER CSS FILE
+   Import all design system files in correct order
+   ===================================================== */
+
+/* Design System Foundation */
+@import url('design-system/variables.css');
+@import url('design-system/reset.css');
+@import url('design-system/typography.css');
+
+/* Core Layout */
+@import url('core/layout.css');
+@import url('core/header.css');
+@import url('core/sidebar.css');
+
+/* Components */
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/forms.css');
+@import url('components/alerts.css');
+@import url('components/modals.css');
+@import url('components/tables.css');
+@import url('components/badges.css');
+@import url('components/progress.css');
+
+/* Add more as you create them:
+@import url('components/tabs.css');
+@import url('components/timer.css');
+@import url('components/dropdown.css');
+@import url('pages/student/dashboard.css');
+@import url('pages/student/exam-taking.css');
+@import url('pages/staff/dashboard.css');
+*/

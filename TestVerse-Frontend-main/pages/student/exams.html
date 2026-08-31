@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exams | TestVerse Student</title>
+
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core -->
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/core/layout.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/cards.css">
+    <link rel="stylesheet" href="../../css/components/badges.css">
+    <link rel="stylesheet" href="../../css/components/alerts.css">
+
+    <!-- Page -->
+    <link rel="stylesheet" href="../../css/pages/student/exams.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">TestVerse</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="exams.html" class="nav-item active">
+                <i class="fas fa-file-alt"></i>
+                <span>Exams</span>
+            </a>
+            <a href="results.html" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>My Results</span>
+            </a>
+            <a href="leaderboard.html" class="nav-item">
+                <i class="fas fa-trophy"></i>
+                <span>Leaderboard</span>
+            </a>
+            <a href="analytics.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-card">
+                <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                     alt="Avatar" class="su-avatar" id="sidebarAvatar">
+                <div class="su-info">
+                    <span class="su-name" id="sidebarName">Loading…</span>
+                    <span class="su-role">Student</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN CONTENT ══════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Exams</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="refreshBtn" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="icon-btn" id="notificationBtn" aria-label="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge hidden" id="notifBadge">0</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                         alt="Avatar" class="user-avatar" id="topbarAvatar">
+                    <div class="user-info">
+                        <span class="user-name" id="topbarName">Loading…</span>
+                        <span class="user-role">Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+
+            <div id="alertContainer"></div>
+
+            <!-- Page Header -->
+            <div class="exams-page-header">
+                <div>
+                    <h2 class="exams-page-title">Available Exams</h2>
+                    <p class="exams-page-sub">Browse and start your scheduled assessments</p>
+                </div>
+            </div>
+
+            <!-- ── STAT PILLS ──────────────────────────────────────── -->
+            <div class="stat-pills-row">
+
+                <div class="stat-pill active-pill" id="filterAll" data-filter="all">
+                    <div class="sp-icon si-primary"><i class="fas fa-layer-group"></i></div>
+                    <div class="sp-body">
+                        <span class="sp-val" id="statAll">—</span>
+                        <span class="sp-lbl">All</span>
+                    </div>
+                </div>
+
+                <div class="stat-pill" id="filterLive" data-filter="live">
+                    <div class="sp-icon si-live"><i class="fas fa-broadcast-tower"></i></div>
+                    <div class="sp-body">
+                        <span class="sp-val" id="statLive">—</span>
+                        <span class="sp-lbl">Live Now</span>
+                    </div>
+                </div>
+
+                <div class="stat-pill" id="filterUpcoming" data-filter="upcoming">
+                    <div class="sp-icon si-warning"><i class="fas fa-clock"></i></div>
+                    <div class="sp-body">
+                        <span class="sp-val" id="statUpcoming">—</span>
+                        <span class="sp-lbl">Upcoming</span>
+                    </div>
+                </div>
+
+                <div class="stat-pill" id="filterAttempted" data-filter="attempted">
+                    <div class="sp-icon si-info"><i class="fas fa-check-circle"></i></div>
+                    <div class="sp-body">
+                        <span class="sp-val" id="statAttempted">—</span>
+                        <span class="sp-lbl">Attempted</span>
+                    </div>
+                </div>
+
+                <div class="stat-pill" id="filterMissed" data-filter="missed">
+                    <div class="sp-icon si-danger"><i class="fas fa-times-circle"></i></div>
+                    <div class="sp-body">
+                        <span class="sp-val" id="statMissed">—</span>
+                        <span class="sp-lbl">Missed</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── FILTER BAR ──────────────────────────────────────── -->
+            <div class="filter-bar">
+                <div class="search-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input"
+                           placeholder="Search exams by title…" autocomplete="off">
+                    <button class="search-clear hidden" id="searchClear">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="filter-selects">
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="mcq">MCQ</option>
+                        <option value="mixed">Mixed</option>
+                        <option value="coding">Coding</option>
+                        <option value="descriptive">Descriptive</option>
+                    </select>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="start_asc">Start Date ↑</option>
+                        <option value="start_desc">Start Date ↓</option>
+                        <option value="title_asc">Title A–Z</option>
+                        <option value="title_desc">Title Z–A</option>
+                        <option value="marks_desc">Most Marks</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results info -->
+            <div class="results-info hidden" id="resultsInfo">
+                <span id="resultsText"></span>
+                <button class="clear-filters-btn hidden" id="clearFiltersBtn">
+                    <i class="fas fa-times-circle"></i> Clear filters
+                </button>
+            </div>
+
+            <!-- ── STATES ──────────────────────────────────────────── -->
+            <div class="loading-state" id="loadingState">
+                <div class="spinner"></div>
+                <p>Loading exams…</p>
+            </div>
+
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <i class="fas fa-file-alt"></i>
+                <p id="emptyTitle">No Exams Found</p>
+                <p id="emptySubtitle" style="font-size:0.8125rem; color:#94a3b8; margin-top:0.25rem;"></p>
+                <button class="btn btn-outline btn-sm" id="emptyResetBtn" style="margin-top:.75rem; display:none;">
+                    <i class="fas fa-undo"></i> Reset Filters
+                </button>
+            </div>
+
+            <!-- ── EXAMS GRID ──────────────────────────────────────── -->
+            <div class="exams-grid" id="examsGrid" style="display:none;"></div>
+
+            <!-- ── PAGINATION ─────────────────────────────────────── -->
+            <div class="exams-pagination" id="pagination" style="display:none;">
+                <button class="page-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Prev
+                </button>
+                <span class="page-info" id="pageInfo">Page 1</span>
+                <button class="page-btn" id="nextBtn" disabled>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ══ EXAM DETAIL MODAL ══════════════════════════════════════════ -->
+    <div class="tv-modal" id="examModal">
+        <div class="tv-modal-dialog tv-modal-lg">
+            <div class="tv-modal-header">
+                <h2 class="tv-modal-title"><i class="fas fa-file-alt"></i> Exam Details</h2>
+                <button class="tv-modal-close" id="examModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="tv-modal-body" id="examModalBody">
+                <div class="loading-state"><div class="spinner"></div><p>Loading…</p></div>
+            </div>
+            <div class="tv-modal-footer">
+                <button class="btn btn-outline btn-sm" id="examModalCancelBtn">Close</button>
+                <button class="btn btn-primary btn-sm" id="examModalStartBtn" style="display:none;">
+                    <i class="fas fa-play"></i> Start Exam
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ START CONFIRM MODAL ════════════════════════════════════════ -->
+    <div class="tv-modal" id="startModal">
+        <div class="tv-modal-dialog tv-modal-sm">
+            <div class="tv-modal-header">
+                <h2 class="tv-modal-title"><i class="fas fa-play-circle"></i> Start Exam?</h2>
+                <button class="tv-modal-close" id="startModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="tv-modal-body">
+                <div class="start-confirm-box">
+                    <i class="fas fa-exclamation-circle sc-icon"></i>
+                    <div>
+                        <p style="font-size:0.9375rem; color:#1e293b; margin:0 0 0.75rem;">
+                            You are about to start <strong id="startExamName"></strong>.
+                        </p>
+                        <ul class="start-rules">
+                            <li><i class="fas fa-clock"></i> <span id="startDuration">— min</span> time limit</li>
+                            <li><i class="fas fa-star"></i> <span id="startMarks">—</span> total marks</li>
+                            <li><i class="fas fa-check-circle"></i> Passing: <span id="startPassing">—</span></li>
+                        </ul>
+                        <p class="start-warn">
+                            <i class="fas fa-info-circle"></i>
+                            Once started, the timer cannot be paused.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tv-modal-footer">
+                <button class="btn btn-outline btn-sm" id="startCancelBtn">Cancel</button>
+                <button class="btn btn-primary btn-sm" id="startConfirmBtn">
+                    <span class="btn-text"><i class="fas fa-play"></i> Begin Now</span>
+                    <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Starting…</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/ui.js"></script>
+    <script src="../../js/pages/student/exams.js"></script>
+</body>
+</html>

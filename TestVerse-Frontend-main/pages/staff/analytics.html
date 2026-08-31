@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics — TestVerse</title>
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/pages/staff/analytics.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i><span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"  class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"      class="nav-item"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"   class="nav-item"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"    class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html"  class="nav-item active"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"   class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">Staff</span>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <span class="breadcrumb-item active">Analytics</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <!-- Exam selector -->
+                <div class="exam-selector-wrap">
+                    <i class="fas fa-filter exam-selector-icon"></i>
+                    <select id="examSelector" class="exam-selector">
+                        <option value="">All Exams (Overview)</option>
+                    </select>
+                </div>
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <div id="alertContainer"></div>
+
+            <!-- ── Page Header ── -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title"><i class="fas fa-chart-line"></i> Analytics</h1>
+                    <p class="page-subtitle" id="analyticsScopeLabel">Overview across all exams</p>
+                </div>
+                <button class="btn btn-outline btn-sm" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+
+            <!-- ── Global loading ── -->
+            <div class="page-loading" id="pageLoading">
+                <div class="spinner"></div><p>Loading analytics…</p>
+            </div>
+
+            <!-- ══ CONTENT (hidden while loading) ══ -->
+            <div id="analyticsContent" style="display:none;">
+
+                <!-- ── KPI Row ── -->
+                <div class="kpi-grid" id="kpiGrid">
+                    <div class="kpi-card" id="kpiTotalExams">
+                        <div class="kpi-icon indigo"><i class="fas fa-file-alt"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValExams">—</span>
+                            <span class="kpi-lbl">Total Exams</span>
+                        </div>
+                        <div class="kpi-trend" id="kpiTrendExams"></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="fas fa-users"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValStudents">—</span>
+                            <span class="kpi-lbl">Total Students</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon green"><i class="fas fa-percentage"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValAvg">—</span>
+                            <span class="kpi-lbl">Avg Score</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon amber"><i class="fas fa-check-double"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValPass">—</span>
+                            <span class="kpi-lbl">Pass Rate</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon red"><i class="fas fa-times-circle"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValFail">—</span>
+                            <span class="kpi-lbl">Fail Rate</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon purple"><i class="fas fa-trophy"></i></div>
+                        <div class="kpi-body">
+                            <span class="kpi-val" id="kpiValHighest">—</span>
+                            <span class="kpi-lbl">Highest Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Row 1: Pass/Fail Donut + Score Distribution Bar ── -->
+                <div class="charts-row two-col">
+
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-chart-pie"></i> Pass vs Fail</div>
+                            <div class="chart-legend" id="donutLegend"></div>
+                        </div>
+                        <div class="chart-wrap chart-wrap-sm">
+                            <canvas id="passFailChart"></canvas>
+                        </div>
+                        <div class="chart-footer" id="passFailFooter"></div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-chart-bar"></i> Score Distribution</div>
+                            <span class="chart-hint">% of students per score range</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="scoreDistChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── Row 2: Avg Score per Exam (line) + Submissions over time (area) ── -->
+                <div class="charts-row one-col" id="overviewCharts">
+
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-chart-line"></i> Average Score per Exam</div>
+                            <div class="chart-tabs" id="avgScoreTabs">
+                                <button class="ctab active" data-view="bar">Bar</button>
+                                <button class="ctab" data-view="line">Line</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="avgScoreChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── Row 3: Submissions Per Exam (horizontal bar) ── -->
+                <div class="charts-row one-col" id="submissionsChartWrap">
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-users"></i> Submissions per Exam</div>
+                            <span class="chart-hint">Total students who attempted each exam</span>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="submissionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Row 4: Exam Type Breakdown + Department Breakdown ── -->
+                <div class="charts-row two-col">
+
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-layer-group"></i> Exam Types</div>
+                        </div>
+                        <div class="chart-wrap chart-wrap-sm">
+                            <canvas id="examTypeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-building"></i> Students by Department</div>
+                        </div>
+                        <div class="chart-wrap chart-wrap-sm">
+                            <canvas id="deptChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── Row 5: Per-exam detail (shown when exam selected) ── -->
+                <div id="examDetailSection" style="display:none;">
+                    <div class="section-divider"><span>Exam Deep Dive</span></div>
+
+                    <div class="charts-row two-col">
+
+                        <div class="chart-card">
+                            <div class="chart-card-header">
+                                <div class="chart-card-title"><i class="fas fa-medal"></i> Top 10 Students</div>
+                            </div>
+                            <div class="chart-wrap">
+                                <canvas id="topStudentsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-card-header">
+                                <div class="chart-card-title"><i class="fas fa-signal"></i> Score Percentile Band</div>
+                            </div>
+                            <div class="chart-wrap">
+                                <canvas id="percentileChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Comparison table -->
+                    <div class="chart-card" id="compTableWrap">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-table"></i> Student Results Comparison</div>
+                            <input type="text" id="compSearch" class="comp-search" placeholder="Search student…">
+                        </div>
+                        <div class="comp-table-wrap">
+                            <table class="comp-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Student</th>
+                                        <th>Marks</th>
+                                        <th>%</th>
+                                        <th>Status</th>
+                                        <th>Grading</th>
+                                        <th>Score Bar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="compTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ── Leaderboard (overview mode) ── -->
+                <div id="leaderboardSection">
+                    <div class="section-divider"><span>Leaderboard</span></div>
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <div class="chart-card-title"><i class="fas fa-crown"></i> Top Performers (All Time)</div>
+                            <span class="chart-hint">By total points earned</span>
+                        </div>
+                        <div class="leaderboard-list" id="leaderboardList">
+                            <div class="inline-loading"><div class="spinner-sm"></div><span>Loading…</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /analyticsContent -->
+
+        </main>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/analytics.js"></script>
+</body>
+</html>

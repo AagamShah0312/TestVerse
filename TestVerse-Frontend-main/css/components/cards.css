@@ -1,0 +1,240 @@
+/* =====================================================
+   CARD COMPONENT SYSTEM
+   Exam cards, stat cards, info cards
+   ===================================================== */
+
+/* ==================== BASE CARD ==================== */
+.card {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==================== CARD VARIANTS ==================== */
+.card-flat {
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+}
+
+.card-elevated {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Disable hover effect */
+.card-static:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==================== CARD PADDING VARIANTS ==================== */
+.card-sm {
+    padding: var(--space-md);
+}
+
+.card-lg {
+    padding: var(--space-xl);
+}
+
+.card-xl {
+    padding: var(--space-2xl);
+}
+
+/* ==================== CARD HEADER ==================== */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* ==================== CARD BODY ==================== */
+.card-body {
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+}
+
+/* ==================== CARD FOOTER ==================== */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+/* ==================== STAT CARD ==================== */
+.stat-card {
+    background: var(--color-bg-card);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-icon.blue {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.stat-icon.green {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.stat-icon.orange {
+    background: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.stat-icon.red {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* ==================== EXAM CARD ==================== */
+.exam-card {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.exam-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.exam-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+}
+
+.exam-badge {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.exam-badge.upcoming {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.exam-badge.live {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.exam-badge.completed {
+    background: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.exam-badge.scheduled {
+    background: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.exam-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.exam-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.exam-meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+/* ==================== CARD GRID ==================== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-lg);
+}
+
+.card-grid-2 {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.card-grid-3 {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .card-grid,
+    .card-grid-2,
+    .card-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,173 @@
+/**
+ * Exam History Page Styles
+ */
+
+.history-container {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+/* Attempt Card */
+.attempt-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.attempt-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.attempt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-3);
+}
+
+.attempt-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+}
+
+.attempt-date {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.attempt-stats {
+    display: flex;
+    gap: var(--space-6);
+    margin-bottom: var(--space-4);
+    padding: var(--space-3);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.attempt-stat {
+    text-align: center;
+}
+
+.attempt-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.attempt-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.attempt-actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+/* Score Circle */
+.score-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.score-circle.pass {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 2px solid #10b981;
+}
+
+.score-circle.fail {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 2px solid #ef4444;
+}
+
+/* Filter tabs */
+.filter-tabs {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.filter-tab {
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.filter-tab:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.filter-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Answer Review Modal */
+.review-modal-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.answer-item {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.answer-item:last-child {
+    border-bottom: none;
+}
+
+.answer-question {
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+}
+
+.answer-response {
+    background: var(--bg-tertiary);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+}
+
+.answer-correct {
+    color: #10b981;
+    font-size: 0.875rem;
+}
+
+.answer-wrong {
+    color: #ef4444;
+    font-size: 0.875rem;
+}

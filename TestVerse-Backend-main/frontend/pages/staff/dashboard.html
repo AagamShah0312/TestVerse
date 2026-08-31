@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Staff Dashboard - University Exam Portal">
+  <title>Staff Dashboard - University Exam Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/profile-dropdown-fix.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="../../css/pages/staff/dashboard.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="../../index.html" class="navbar-brand">
+          <div class="navbar-logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          Exam Portal
+        </a>
+        
+        <div class="navbar-menu">
+          <a href="dashboard.html" class="navbar-link active">Dashboard</a>
+          <a href="exams.html" class="navbar-link">Exams</a>
+          <a href="students.html" class="navbar-link">Students</a>
+          <a href="results.html" class="navbar-link">Results</a>
+        </div>
+        
+        <div class="navbar-user">
+          <span class="badge badge-primary">Staff</span>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button class="profile-dropdown-toggle" onclick="toggleProfileDropdown()">
+              <span class="text-muted text-sm" id="user-name">Loading...</span>
+              <div class="navbar-avatar" id="user-avatar">?</div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="profile-dropdown-menu">
+              <div class="profile-dropdown-header">
+                <div class="profile-dropdown-name" id="dropdown-name">Staff</div>
+                <div class="profile-dropdown-email" id="dropdown-email">staff@example.com</div>
+              </div>
+              <a href="dashboard.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Dashboard
+              </a>
+              <a href="exams.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                Manage Exams
+              </a>
+              <a href="results.html" class="profile-dropdown-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                View Results
+              </a>
+              <div class="profile-dropdown-divider"></div>
+              <button class="profile-dropdown-item danger" onclick="Auth.logout()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                  <polyline points="16 17 21 12 16 7"/>
+                  <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <main class="main-content">
+    <div class="container">
+      <!-- Header -->
+      <div class="dashboard-header animate-fadeInUp">
+        <div>
+          <h1 class="welcome-text">Staff Dashboard 🎓</h1>
+          <p class="text-muted">Manage exams, questions, and view analytics</p>
+        </div>
+        <div class="quick-actions">
+          <a href="exam-create.html" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Create Exam
+          </a>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats-grid mb-8 stagger">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="total-exams">-</div>
+          <div class="stat-label">Total Exams</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--success);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="published-count">-</div>
+          <div class="stat-label">Published</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--warning);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="draft-count">-</div>
+          <div class="stat-label">Drafts</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.2); color: var(--info);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="stat-value" id="total-students">-</div>
+          <div class="stat-label">Total Attempts</div>
+        </div>
+      </div>
+      
+      <!-- Recent Exams -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">Recent Exams</h2>
+          <a href="exams.html" class="btn btn-secondary btn-sm">View All</a>
+        </div>
+        
+        <div class="exams-table-container">
+          <table class="table" id="exams-table">
+            <thead>
+              <tr>
+                <th>Exam Title</th>
+                <th>Status</th>
+                <th>Questions</th>
+                <th>Attempts</th>
+                <th>Start Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="exams-tbody">
+              <tr>
+                <td colspan="6" class="text-center p-8">
+                  <div class="spinner" style="margin: 0 auto;"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <!-- Core Libraries -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  
+  <!-- Page-specific Script -->
+  <script src="../../js/staff-dashboard.js"></script>
+</body>
+</html>

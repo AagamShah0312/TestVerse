@@ -1,0 +1,294 @@
+/* =====================================================
+   ALERT COMPONENT SYSTEM
+   Success, warning, danger, info alerts
+   ===================================================== */
+
+/* ==================== BASE ALERT ==================== */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-lg);
+    border-left: 4px solid transparent;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-title {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-xs);
+}
+
+.alert-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity var(--transition-base);
+}
+
+.alert-close:hover {
+    opacity: 1;
+}
+
+/* ==================== SUCCESS ALERT ==================== */
+.alert-success {
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+    border-left-color: var(--color-success);
+}
+
+/* ==================== WARNING ALERT ==================== */
+.alert-warning {
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
+    border-left-color: var(--color-warning);
+}
+
+/* ==================== DANGER ALERT ==================== */
+.alert-danger {
+    background: var(--color-danger-light);
+    color: var(--color-danger-dark);
+    border-left-color: var(--color-danger);
+}
+
+/* ==================== INFO ALERT ==================== */
+.alert-info {
+    background: var(--color-info-light);
+    color: var(--color-info-dark);
+    border-left-color: var(--color-info);
+}
+
+/* ==================== ALERT VARIANTS ==================== */
+/* Solid variant */
+.alert-solid.alert-success {
+    background: var(--color-success);
+    color: white;
+}
+
+.alert-solid.alert-warning {
+    background: var(--color-warning);
+    color: white;
+}
+
+.alert-solid.alert-danger {
+    background: var(--color-danger);
+    color: white;
+}
+
+.alert-solid.alert-info {
+    background: var(--color-info);
+    color: white;
+}
+
+/* Outline variant */
+.alert-outline {
+    background: transparent;
+    border: 2px solid;
+}
+
+.alert-outline.alert-success {
+    border-color: var(--color-success);
+    color: var(--color-success-dark);
+}
+
+.alert-outline.alert-warning {
+    border-color: var(--color-warning);
+    color: var(--color-warning-dark);
+}
+
+.alert-outline.alert-danger {
+    border-color: var(--color-danger);
+    color: var(--color-danger-dark);
+}
+
+.alert-outline.alert-info {
+    border-color: var(--color-info);
+    color: var(--color-info-dark);
+}
+
+/* ==================== ALERT SIZES ==================== */
+.alert-sm {
+    padding: 12px 16px;
+    font-size: var(--font-size-xs);
+}
+
+.alert-lg {
+    padding: 20px 24px;
+    font-size: var(--font-size-base);
+}
+
+/* ==================== ALERT WITH ACTIONS ==================== */
+.alert-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.alert-action-btn {
+    padding: 6px 12px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.alert-success .alert-action-btn {
+    background: var(--color-success);
+    color: white;
+}
+
+.alert-warning .alert-action-btn {
+    background: var(--color-warning);
+    color: white;
+}
+
+.alert-danger .alert-action-btn {
+    background: var(--color-danger);
+    color: white;
+}
+
+.alert-info .alert-action-btn {
+    background: var(--color-info);
+    color: white;
+}
+
+.alert-action-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: var(--space-lg);
+    z-index: var(--z-tooltip);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 400px;
+}
+
+.toast {
+    background: white;
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    animation: slideInRight 0.3s ease;
+}
+
+.toast-success {
+    border-left: 4px solid var(--color-success);
+}
+
+.toast-warning {
+    border-left: 4px solid var(--color-warning);
+}
+
+.toast-danger {
+    border-left: 4px solid var(--color-danger);
+}
+
+.toast-info {
+    border-left: 4px solid var(--color-info);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ==================== BANNER ALERTS ==================== */
+.alert-banner {
+    border-radius: 0;
+    margin-bottom: 0;
+    border-left: none;
+    border-bottom: 4px solid;
+}
+
+.alert-banner.alert-success {
+    border-bottom-color: var(--color-success);
+}
+
+.alert-banner.alert-warning {
+    border-bottom-color: var(--color-warning);
+}
+
+.alert-banner.alert-danger {
+    border-bottom-color: var(--color-danger);
+}
+
+.alert-banner.alert-info {
+    border-bottom-color: var(--color-info);
+}
+
+/* ==================== ALERT ANIMATIONS ==================== */
+.alert.show {
+    animation: slideDown 0.3s ease;
+}
+
+.alert.hide {
+    animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 200px;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .toast-container {
+        right: var(--space-md);
+        left: var(--space-md);
+        max-width: none;
+    }
+}

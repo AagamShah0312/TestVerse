@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | TestVerse Student</title>
+
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Core -->
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/core/layout.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="../../css/components/buttons.css">
+    <link rel="stylesheet" href="../../css/components/cards.css">
+    <link rel="stylesheet" href="../../css/components/badges.css">
+    <link rel="stylesheet" href="../../css/components/alerts.css">
+
+    <!-- Page -->
+    <link rel="stylesheet" href="../../css/pages/student/dashboard.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">TestVerse</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="exams.html" class="nav-item">
+                <i class="fas fa-file-alt"></i>
+                <span>Exams</span>
+            </a>
+            <a href="results.html" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>My Results</span>
+            </a>
+            <a href="analytics.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-card">
+                <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                     alt="Avatar" class="su-avatar" id="sidebarAvatar">
+                <div class="su-info">
+                    <span class="su-name" id="sidebarName">Loading…</span>
+                    <span class="su-role">Student</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ══ MAIN CONTENT ══════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="icon-btn" id="notificationBtn" aria-label="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge hidden" id="notifBadge">0</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Student&background=6366f1&color=fff"
+                         alt="Avatar" class="user-avatar" id="topbarAvatar">
+                    <div class="user-info">
+                        <span class="user-name" id="topbarName">Loading…</span>
+                        <span class="user-role">Student</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+
+            <div id="alertContainer"></div>
+
+            <!-- Welcome Banner -->
+            <section class="welcome-banner">
+                <div class="wb-left">
+                    <h2 class="wb-title">Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+                    <p class="wb-sub">Here's your exam activity at a glance.</p>
+                </div>
+                <div class="wb-right">
+                    <a href="exams.html" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Browse Exams
+                    </a>
+                </div>
+            </section>
+
+            <!-- ── STAT CARDS ──────────────────────────────────────── -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon si-primary"><i class="fas fa-file-alt"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-lbl">Available</span>
+                        <span class="stat-val" id="statAvailable"><span class="loader-dot"></span></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon si-success"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-lbl">Completed</span>
+                        <span class="stat-val" id="statCompleted"><span class="loader-dot"></span></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon si-warning"><i class="fas fa-clock"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-lbl">Upcoming</span>
+                        <span class="stat-val" id="statUpcoming"><span class="loader-dot"></span></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon si-info"><i class="fas fa-percentage"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-lbl">Avg Score</span>
+                        <span class="stat-val" id="statAvgScore"><span class="loader-dot"></span></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon si-violet"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-body">
+                        <span class="stat-lbl">Best Score</span>
+                        <span class="stat-val" id="statBestScore"><span class="loader-dot"></span></span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ── LIVE NOW BANNER ─────────────────────────────────── -->
+            <div class="live-exam-alert hidden" id="liveExamAlert">
+                <div class="lea-left">
+                    <span class="lea-pulse-wrap"><span class="lea-dot"></span></span>
+                    <div>
+                        <div class="lea-title">Exam in Progress!</div>
+                        <div class="lea-sub" id="liveExamName">Loading…</div>
+                    </div>
+                </div>
+                <div class="lea-right">
+                    <span class="lea-timer" id="liveExamTimer">--:--</span>
+                    <a href="#" class="btn btn-live" id="liveExamResumeBtn">
+                        <i class="fas fa-play"></i> Resume
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── MAIN GRID ───────────────────────────────────────── -->
+            <div class="dash-grid">
+
+                <!-- Available Exams (spans 2 cols) -->
+                <section class="dash-card dash-card-lg">
+                    <div class="dc-header">
+                        <h3 class="dc-title"><i class="fas fa-file-alt"></i> Available Exams</h3>
+                        <a href="exams.html" class="dc-link">View all</a>
+                    </div>
+                    <div class="dc-body" id="availableExamsList">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading exams…</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Results -->
+                <section class="dash-card">
+                    <div class="dc-header">
+                        <h3 class="dc-title"><i class="fas fa-chart-bar"></i> Recent Results</h3>
+                        <a href="results.html" class="dc-link">View all</a>
+                    </div>
+                    <div class="dc-body" id="recentResultsList">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading results…</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Upcoming Exams -->
+                <section class="dash-card">
+                    <div class="dc-header">
+                        <h3 class="dc-title"><i class="fas fa-calendar-alt"></i> Upcoming</h3>
+                    </div>
+                    <div class="dc-body" id="upcomingExamsList">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading…</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Snapshot -->
+                <section class="dash-card">
+                    <div class="dc-header">
+                        <h3 class="dc-title"><i class="fas fa-chart-pie"></i> Performance</h3>
+                        <a href="analytics.html" class="dc-link">Details</a>
+                    </div>
+                    <div class="dc-body" id="performancePanel">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading…</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions (full width) -->
+                <section class="dash-card dash-card-actions">
+                    <div class="dc-header">
+                        <h3 class="dc-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    </div>
+                    <div class="dc-body">
+                        <div class="quick-actions">
+                            <a href="exams.html" class="qa-btn">
+                                <i class="fas fa-search"></i>
+                                Browse Exams
+                            </a>
+                            <a href="results.html" class="qa-btn">
+                                <i class="fas fa-chart-bar"></i>
+                                My Results
+                            </a>
+                            <a href="analytics.html" class="qa-btn">
+                                <i class="fas fa-chart-line"></i>
+                                Analytics
+                            </a>
+                            <a href="profile.html" class="qa-btn">
+                                <i class="fas fa-user-circle"></i>
+                                Profile
+                            </a>
+                            <a href="exams.html?filter=upcoming" class="qa-btn">
+                                <i class="fas fa-calendar-plus"></i>
+                                Schedule
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /.dash-grid -->
+        </div><!-- /.page-content -->
+    </main>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/ui.js"></script>
+    <script src="../../js/pages/student/dashboard.js"></script>
+</body>
+</html>

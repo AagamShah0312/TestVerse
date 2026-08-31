@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Monitor — TestVerse</title>
+    <link rel="icon" href="../../assets/icons/exam.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/pages/staff/live-monitor.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i><span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html"  class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"      class="nav-item active"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"   class="nav-item"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"    class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html"  class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"   class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <a href="exams.html" class="back-btn" title="Back to Exams">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="breadcrumb">
+                    <a href="exams.html" class="breadcrumb-item link">Exams</a>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <span class="breadcrumb-item active">Live Monitor</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <!-- Live pulse indicator -->
+                <div class="live-indicator" id="liveIndicator">
+                    <span class="live-pulse"></span>
+                    <span class="live-label">LIVE</span>
+                </div>
+                <!-- Poll interval selector -->
+                <div class="interval-wrap">
+                    <i class="fas fa-sync-alt interval-icon" id="pollIcon"></i>
+                    <select id="pollInterval" class="interval-select" title="Refresh interval">
+                        <option value="10000">10s</option>
+                        <option value="15000" selected>15s</option>
+                        <option value="30000">30s</option>
+                        <option value="60000">60s</option>
+                    </select>
+                </div>
+                <!-- Manual refresh -->
+                <button class="icon-btn" id="refreshNowBtn" title="Refresh now">
+                    <i class="fas fa-redo-alt"></i>
+                </button>
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <div id="alertContainer"></div>
+
+            <!-- ── Exam Header Card ── -->
+            <div class="exam-header-card" id="examHeaderCard" style="display:none;">
+                <div class="exam-header-left">
+                    <div class="exam-live-badge"><span class="pulse-dot"></span> LIVE</div>
+                    <div>
+                        <h1 class="exam-title" id="examTitle">Loading…</h1>
+                        <div class="exam-meta-row">
+                            <span class="emeta"><i class="fas fa-tag"></i> <span id="examType">—</span></span>
+                            <span class="emeta"><i class="fas fa-clock"></i> <span id="examDuration">—</span> min</span>
+                            <span class="emeta"><i class="fas fa-trophy"></i> <span id="examMarks">—</span> marks</span>
+                            <span class="emeta"><i class="fas fa-play-circle"></i> Started <span id="examStart">—</span></span>
+                            <span class="emeta"><i class="fas fa-stop-circle"></i> Ends <span id="examEnd">—</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exam-countdown-wrap">
+                    <div class="exam-countdown" id="examCountdown">—</div>
+                    <div class="exam-countdown-lbl">remaining</div>
+                </div>
+            </div>
+
+            <!-- ── Page loading ── -->
+            <div class="page-loading" id="pageLoading">
+                <div class="spinner"></div>
+                <p>Connecting to live session…</p>
+            </div>
+
+            <!-- ══ MONITOR CONTENT ══ -->
+            <div id="monitorContent" style="display:none;">
+
+                <!-- ── KPI Row ── -->
+                <div class="kpi-row">
+                    <div class="kpi-tile kpi-active">
+                        <div class="kpi-tile-icon"><i class="fas fa-user-clock"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiActive">—</span>
+                            <span class="kpi-tile-lbl">In Progress</span>
+                        </div>
+                    </div>
+                    <div class="kpi-tile kpi-submitted">
+                        <div class="kpi-tile-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiSubmitted">—</span>
+                            <span class="kpi-tile-lbl">Submitted</span>
+                        </div>
+                    </div>
+                    <div class="kpi-tile kpi-notstarted">
+                        <div class="kpi-tile-icon"><i class="fas fa-hourglass-start"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiNotStarted">—</span>
+                            <span class="kpi-tile-lbl">Not Started</span>
+                        </div>
+                    </div>
+                    <div class="kpi-tile kpi-total">
+                        <div class="kpi-tile-icon"><i class="fas fa-users"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiTotal">—</span>
+                            <span class="kpi-tile-lbl">Total Enrolled</span>
+                        </div>
+                    </div>
+                    <div class="kpi-tile kpi-avgprog">
+                        <div class="kpi-tile-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiAvgProg">—</span>
+                            <span class="kpi-tile-lbl">Avg Progress</span>
+                        </div>
+                    </div>
+                    <div class="kpi-tile kpi-lastupdate">
+                        <div class="kpi-tile-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="kpi-tile-body">
+                            <span class="kpi-tile-val" id="kpiLastUpdate">—</span>
+                            <span class="kpi-tile-lbl">Last Refresh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Aggregate Progress Bar ── -->
+                <div class="agg-progress-card">
+                    <div class="agg-progress-header">
+                        <span class="agg-progress-title">
+                            <i class="fas fa-chart-line"></i> Overall Exam Progress
+                        </span>
+                        <span class="agg-progress-pct" id="aggPct">0%</span>
+                    </div>
+                    <div class="agg-track">
+                        <div class="agg-fill submitted-fill" id="aggSubmittedFill" style="width:0%"
+                             title="Submitted"></div>
+                        <div class="agg-fill active-fill" id="aggActiveFill" style="width:0%"
+                             title="In Progress"></div>
+                    </div>
+                    <div class="agg-legend">
+                        <span class="agg-leg-item"><span class="agg-dot submitted"></span>Submitted</span>
+                        <span class="agg-leg-item"><span class="agg-dot active"></span>In Progress</span>
+                        <span class="agg-leg-item"><span class="agg-dot notstarted"></span>Not Started</span>
+                    </div>
+                </div>
+
+                <!-- ── Toolbar: search + filter + actions ── -->
+                <div class="monitor-toolbar">
+                    <div class="toolbar-left">
+                        <div class="search-wrap">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="studentSearch"
+                                   class="search-input" placeholder="Search student…">
+                        </div>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">All Students</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="submitted">Submitted</option>
+                            <option value="not_started">Not Started</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ── Student Monitor Table ── -->
+                <div class="monitor-table-card">
+                    <div class="monitor-table-header">
+                        <span class="monitor-count" id="monitorCount">0 students</span>
+                        <span class="monitor-hint"><i class="fas fa-info-circle"></i> Updates every
+                            <span id="hintInterval">15</span>s</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="monitor-table" id="monitorTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Student</th>
+                                    <th>Status</th>
+                                    <th>Progress</th>
+                                    <th>Answered</th>
+                                    <th>Time Left</th>
+                                    <th>Start Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="monitorTableBody"></tbody>
+                        </table>
+                    </div>
+                    <!-- empty table state -->
+                    <div class="table-empty" id="tableEmpty" style="display:none;">
+                        <i class="fas fa-satellite-dish"></i>
+                        <p>No students found for this filter.</p>
+                    </div>
+                </div>
+
+            </div><!-- /monitorContent -->
+
+        </main>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/live-monitor.js"></script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TestVerse - Modern Online Examination Platform for Students and Educators">
+    <title>TestVerse - Smart Online Examination Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pages/landing.css">
+    
+    <!-- Google Fonts (Optional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="landing-nav" id="mainNav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <!-- Logo -->
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">T</div>
+                    <span class="logo-text">TestVerse</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item">
+                        <a href="#features" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#how-it-works" class="nav-link">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#pricing" class="nav-link">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Auth Buttons -->
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-ghost">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="hero-badge">
+                        <span class="badge-dot"></span>
+                        Trusted by 10,000+ Students & Educators
+                    </span>
+                    
+                    <h1 class="hero-title">
+                        Modern Online Examination Platform for 
+                        <span class="gradient-text">Everyone</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Create, conduct, and evaluate exams seamlessly with TestVerse. 
+                        Powerful features for educators, intuitive experience for students.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="signup.html" class="btn btn-primary btn-lg">
+                            Get Started Free
+                            <span>→</span>
+                        </a>
+                        <a href="#demo" class="btn btn-outline btn-lg">
+                            Watch Demo
+                            <span>▶</span>
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Exams Conducted</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <!-- Animated Dashboard Preview -->
+                        <div class="dashboard-preview">
+                            <div class="preview-window">
+                                <div class="window-header">
+                                    <div class="window-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="window-content">
+                                    <div class="preview-card">
+                                        <div class="card-header">
+                                            <span class="badge badge-live">Live</span>
+                                        </div>
+                                        <div class="card-title">Mathematics Final Exam</div>
+                                        <div class="card-meta">⏱ 2 hours • 📝 50 questions</div>
+                                        <div class="card-progress">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div class="floating-element elem-1">
+                            <div class="float-icon">✓</div>
+                            <span>Auto-grading</span>
+                        </div>
+                        <div class="floating-element elem-2">
+                            <div class="float-icon">🔒</div>
+                            <span>Secure</span>
+                        </div>
+                        <div class="floating-element elem-3">
+                            <div class="float-icon">📊</div>
+                            <span>Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Background -->
+        <div class="hero-bg">
+            <div class="hero-shape shape-1"></div>
+            <div class="hero-shape shape-2"></div>
+            <div class="hero-shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-tag">Features</span>
+                <h2 class="section-title">Everything You Need</h2>
+                <p class="section-description">
+                    Powerful tools to create, manage, and evaluate exams with ease
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Easy Exam Creation</h3>
+                    <p class="feature-description">
+                        Create exams in minutes with our intuitive question builder. 
+                        Support for multiple question types including MCQ, subjective, and more.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Smart Scheduling</h3>
+                    <p class="feature-description">
+                        Schedule exams with flexible timing. Set start dates, durations, 
+                        and automatic submissions with countdown timers.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Secure & Proctored</h3>
+                    <p class="feature-description">
+                        Advanced security features including browser lockdown, 
+                        tab switching detection, and time-based question delivery.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Real-time Analytics</h3>
+                    <p class="feature-description">
+                        Get instant insights with detailed analytics. Track performance, 
+                        identify patterns, and generate comprehensive reports.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Auto-grading</h3>
+                    <p class="feature-description">
+                        Save time with intelligent auto-grading for objective questions. 
+                        Manual grading interface for subjective answers.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 010 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Student Management</h3>
+                    <p class="feature-description">
+                        Manage students efficiently with bulk import, groups, 
+                        and performance tracking across multiple exams.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="how-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-tag">How It Works</span>
+                <h2 class="section-title">Get Started in 3 Simple Steps</h2>
+                <p class="section-description">
+                    From creation to evaluation, TestVerse makes everything simple
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Create Your Exam</h3>
+                        <p class="step-description">
+                            Use our intuitive exam builder to add questions, set time limits, 
+                            and configure settings. Import questions or create from scratch.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="visual-card">
+                            <div class="visual-header">
+                                <span class="visual-dot"></span>
+                                <span class="visual-dot"></span>
+                                <span class="visual-dot"></span>
+                            </div>
+                            <div class="visual-body">
+                                <div class="visual-line long"></div>
+                                <div class="visual-line medium"></div>
+                                <div class="visual-line short"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item step-reverse">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Share with Students</h3>
+                        <p class="step-description">
+                            Send exam links to students via email or LMS integration. 
+                            Students can take exams on any device with internet connection.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="visual-card">
+                            <div class="visual-avatars">
+                                <div class="visual-avatar"></div>
+                                <div class="visual-avatar"></div>
+                                <div class="visual-avatar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Review & Analyze</h3>
+                        <p class="step-description">
+                            Get instant results with auto-grading. Review submissions, 
+                            analyze performance trends, and export detailed reports.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="visual-card">
+                            <div class="visual-chart">
+                                <div class="chart-bar" style="height: 60%"></div>
+                                <div class="chart-bar" style="height: 85%"></div>
+                                <div class="chart-bar" style="height: 45%"></div>
+                                <div class="chart-bar" style="height: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRICING SECTION ==================== -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header-center">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">Choose Your Plan</h2>
+                <p class="section-description">
+                    Start free, upgrade when you need more
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Free Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-plan">Free</h3>
+                        <div class="pricing-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">0</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="pricing-description">Perfect for getting started</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Up to 3 exams/month</li>
+                        <li><span class="check-icon">✓</span> 50 students max</li>
+                        <li><span class="check-icon">✓</span> Basic question types</li>
+                        <li><span class="check-icon">✓</span> Auto-grading</li>
+                        <li><span class="check-icon">✓</span> Email support</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-outline btn-block">Get Started</a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-plan">Pro</h3>
+                        <div class="pricing-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">29</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                        <p class="pricing-description">For serious educators</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Unlimited exams</li>
+                        <li><span class="check-icon">✓</span> Unlimited students</li>
+                        <li><span class="check-icon">✓</span> All question types</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> Priority support</li>
+                        <li><span class="check-icon">✓</span> Custom branding</li>
+                    </ul>
+                    <a href="signup.html" class="btn btn-primary btn-block">Start Free Trial</a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-plan">Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">Custom</span>
+                        </div>
+                        <p class="pricing-description">For institutions</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Everything in Pro</li>
+                        <li><span class="check-icon">✓</span> SSO integration</li>
+                        <li><span class="check-icon">✓</span> API access</li>
+                        <li><span class="check-icon">✓</span> Dedicated support</li>
+                        <li><span class="check-icon">✓</span> Custom features</li>
+                        <li><span class="check-icon">✓</span> SLA guarantee</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline btn-block">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Transform Your Exams?</h2>
+                <p class="cta-description">
+                    Join thousands of educators already using TestVerse
+                </p>
+                <div class="cta-buttons">
+                    <a href="signup.html" class="btn btn-primary btn-lg">
+                        Start Free Trial
+                        <span>→</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary btn-lg">
+                        Schedule Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">T</div>
+                        <span class="logo-text">TestVerse</span>
+                    </div>
+                    <p class="footer-description">
+                        Modern online examination platform trusted by educators worldwide.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                        <a href="#" class="social-link" aria-label="GitHub">⚡</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 TestVerse. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/landing.js"></script>
+</body>
+</html>

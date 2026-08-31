@@ -1,0 +1,151 @@
+/* ===================================================================
+   MODERN CSS RESET
+   - A clean slate for a consistent cross-browser experience.
+   - Based on principles from Josh Comeau, Andy Bell, and Elad Shechter.
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   1. BOX SIZING & RESET
+   - Set a more intuitive box-sizing model.
+   - Remove default margin and padding.
+   ------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* -------------------------------------------------------------------
+   2. DOCUMENT & TYPOGRAPHY DEFAULTS
+   - Set base font styles on the body for better inheritance.
+   - Improve text rendering and line height.
+   ------------------------------------------------------------------- */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape on iOS */
+}
+
+body {
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    font-size: var(--text-base, 16px);
+    line-height: var(--line-height-normal, 1.6);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+}
+
+/* -------------------------------------------------------------------
+   3. MEDIA & EMBEDDED CONTENT
+   - Make images and other media responsive by default.
+   ------------------------------------------------------------------- */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* -------------------------------------------------------------------
+   4. FORM ELEMENT NORMALIZATION
+   - Inherit font styles for form controls.
+   - Remove default styling for buttons.
+   ------------------------------------------------------------------- */
+input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+/* Remove inner border in Firefox */
+button::-moz-focus-inner {
+    border: 0;
+}
+
+/* Consistent appearance for search inputs */
+input[type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+}
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/* -------------------------------------------------------------------
+   5. LINKS & LISTS
+   - Remove default underlines and list styles.
+   ------------------------------------------------------------------- */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* -------------------------------------------------------------------
+   6. HEADINGS & PARAGRAPHS
+   - Ensure consistent text wrapping.
+   ------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6, p {
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* -------------------------------------------------------------------
+   7. ACCESSIBILITY & FOCUS STATES
+   - A custom focus-visible state for keyboard navigators.
+   ------------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* -------------------------------------------------------------------
+   8. REDUCED MOTION
+   - Respect user preference for reduced motion.
+   ------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* -------------------------------------------------------------------
+   9. UTILITY CLASSES
+   - Commonly used helper classes.
+   ------------------------------------------------------------------- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

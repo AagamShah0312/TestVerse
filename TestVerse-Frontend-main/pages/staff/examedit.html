@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Questions — TestVerse Staff</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/core/reset.css">
+    <link rel="stylesheet" href="../../css/core/variables.css">
+    <link rel="stylesheet" href="../../css/core/typography.css">
+    <link rel="stylesheet" href="../../css/pages/staff/examedit.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i><span>TestVerse</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="exams.html"     class="nav-item active"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="students.html"  class="nav-item"><i class="fas fa-users"></i><span>Students</span></a>
+            <a href="results.html"   class="nav-item"><i class="fas fa-chart-bar"></i><span>Results</span></a>
+            <a href="analytics.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
+            <a href="settings.html"  class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <img id="sidebarAvatar" src="" alt="" class="user-card-avatar">
+                <div>
+                    <span class="user-card-name" id="sidebarName">Staff</span>
+                    <span class="user-card-role">Staff Member</span>
+                </div>
+            </div>
+            <button class="nav-item logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <a href="exams.html" class="breadcrumb-item breadcrumb-link">Exams</a>
+                    <i class="fas fa-chevron-right breadcrumb-sep"></i>
+                    <span class="breadcrumb-item active" id="breadcrumbExamTitle">Questions</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <a href="exams.html" class="btn btn-outline btn-sm">
+                    <i class="fas fa-arrow-left"></i> All Exams
+                </a>
+                <div class="user-menu">
+                    <img id="topbarAvatar" src="" alt="" class="user-avatar">
+                    <div class="user-info">
+                        <div class="user-name" id="topbarName">Staff</div>
+                        <div class="user-role">Staff Member</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main class="page-content">
+            <div id="alertContainer"></div>
+
+            <!-- Exam Summary Bar -->
+            <div class="exam-summary-bar" id="examSummaryBar" style="display:none;">
+                <div class="esb-left">
+                    <div class="esb-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="esb-info">
+                        <h1 class="esb-title" id="esbTitle">—</h1>
+                        <div class="esb-meta">
+                            <span id="esbType"></span>
+                            <span class="esb-dot">·</span>
+                            <span id="esbDuration"></span>
+                            <span class="esb-dot">·</span>
+                            <span id="esbMarks"></span>
+                            <span class="esb-dot">·</span>
+                            <span id="esbStatus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="esb-right">
+                    <div class="esb-stat">
+                        <span class="esb-stat-val" id="esbQCount">0</span>
+                        <span class="esb-stat-lbl">Questions</span>
+                    </div>
+                    <div class="esb-stat">
+                        <span class="esb-stat-val" id="esbTotalQ">0</span>
+                        <span class="esb-stat-lbl">Total Points</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="addQuestionBtn">
+                        <i class="fas fa-plus"></i> Add Question
+                    </button>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner" id="welcomeBanner" style="display:none;">
+                <div class="wb-icon"><i class="fas fa-party-horn"></i></div>
+                <div class="wb-body">
+                    <h2>Exam created! Now add your questions.</h2>
+                    <p>Use the <strong>Add Question</strong> button or the <strong>+ Add</strong> button below to start building your question bank.</p>
+                </div>
+                <button class="wb-close" id="welcomeClose"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- ✅ UPDATED: Question Type Tabs — added multi_mcq, descriptive, coding -->
+            <div class="q-toolbar" id="qToolbar" style="display:none;">
+                <div class="q-tabs">
+                    <button class="q-tab active" data-type="">All Types</button>
+                    <button class="q-tab" data-type="mcq">MCQ</button>
+                    <button class="q-tab" data-type="multiple_mcq">Multi-MCQ</button>
+                    <button class="q-tab" data-type="coding">Coding</button>
+                </div>
+                <div class="q-toolbar-right">
+                    <span class="q-count-badge" id="qCountBadge">0 questions</span>
+                    <button class="btn btn-outline btn-sm" id="reorderBtn" title="Drag to reorder">
+                        <i class="fas fa-sort"></i> Reorder
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading-state" id="loadingState">
+                <div class="spinner"></div><p>Loading questions…</p>
+            </div>
+
+            <!-- Empty -->
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <div class="empty-icon"><i class="fas fa-question-circle"></i></div>
+                <h3>No Questions Yet</h3>
+                <p>Add your first question to start building this exam.</p>
+                <button class="btn btn-primary" id="emptyAddBtn">
+                    <i class="fas fa-plus"></i> Add First Question
+                </button>
+            </div>
+
+            <!-- Questions List -->
+            <div class="questions-list" id="questionsList" style="display:none;"></div>
+
+            <!-- Add Question Row -->
+            <div class="add-q-row" id="addQRow" style="display:none;">
+                <button class="add-q-btn" id="addQRowBtn">
+                    <i class="fas fa-plus-circle"></i> Add Another Question
+                </button>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     QUESTION DRAWER
+     ══════════════════════════════════════════════════════════════ -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="question-drawer" id="questionDrawer">
+    <div class="drawer-header">
+        <div class="drawer-header-left">
+            <div class="drawer-icon" id="drawerIcon"><i class="fas fa-plus"></i></div>
+            <div>
+                <h2 class="drawer-title" id="drawerTitle">Add Question</h2>
+                <p class="drawer-subtitle" id="drawerSubtitle">Fill in the details below</p>
+            </div>
+        </div>
+        <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="drawer-body">
+        <div id="drawerAlert"></div>
+
+        <!-- ✅ UPDATED: Question Type Selector — added multiple_mcq, descriptive, coding -->
+        <div class="type-selector-group">
+            <label class="drawer-label">Question Type <span class="req">*</span></label>
+            <div class="type-selector" id="typeSelector">
+                <button type="button" class="type-btn active" data-value="mcq">
+                    <i class="fas fa-list-ul"></i>
+                    <span>MCQ</span>
+                </button>
+                <button type="button" class="type-btn" data-value="multiple_mcq">
+                    <i class="fas fa-tasks"></i>
+                    <span>Multi-MCQ</span>
+                </button>
+                <button type="button" class="type-btn" data-value="descriptive">
+                    <i class="fas fa-pen-nib"></i>
+                    <span>Descriptive</span>
+                </button>
+                <button type="button" class="type-btn" data-value="coding">
+                    <i class="fas fa-code"></i>
+                    <span>Coding</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Question Text -->
+        <div class="drawer-field">
+            <label class="drawer-label" for="qText">Question <span class="req">*</span></label>
+            <textarea id="qText" class="drawer-textarea" rows="3"
+                placeholder="Enter your question here…" maxlength="2000"></textarea>
+            <span class="drawer-error" id="qTextErr"></span>
+        </div>
+
+        <!-- MCQ / Multi-MCQ Options -->
+        <div id="mcqSection">
+            <div class="drawer-field">
+                <div class="options-header">
+                    <label class="drawer-label">Answer Options <span class="req">*</span></label>
+                    <button type="button" class="add-option-btn" id="addOptionBtn">
+                        <i class="fas fa-plus"></i> Add Option
+                    </button>
+                </div>
+                <div class="options-list" id="optionsList"></div>
+                <span class="drawer-error" id="qOptionsErr"></span>
+            </div>
+            <div class="drawer-field">
+                <!-- ✅ id and label updated via JS for multi-select; hint shown for multiple_mcq -->
+                <label class="drawer-label" id="correctLabel">
+                    Correct Answer <span class="req">*</span>
+                </label>
+                <p class="drawer-help" id="multiHint" style="display:none;">
+                    <i class="fas fa-info-circle"></i>
+                    Hold <kbd>Ctrl</kbd> / <kbd>Cmd</kbd> to select multiple correct answers.
+                </p>
+                <select id="correctOption" class="drawer-select">
+                    <option value="">— select correct option —</option>
+                </select>
+                <span class="drawer-error" id="qCorrectErr"></span>
+            </div>
+        </div>
+
+        <!-- True / False -->
+        <div id="tfSection" style="display:none;">
+            <div class="drawer-field">
+                <label class="drawer-label">Correct Answer <span class="req">*</span></label>
+                <div class="tf-choice">
+                    <label class="tf-option" id="tfTrue">
+                        <input type="radio" name="tfAnswer" value="true">
+                        <span class="tf-label"><i class="fas fa-check"></i> True</span>
+                    </label>
+                    <label class="tf-option" id="tfFalse">
+                        <input type="radio" name="tfAnswer" value="false">
+                        <span class="tf-label"><i class="fas fa-times"></i> False</span>
+                    </label>
+                </div>
+                <span class="drawer-error" id="qTfErr"></span>
+            </div>
+        </div>
+
+        <!-- Short / Long Answer -->
+        <div id="saSection" style="display:none;">
+            <div class="drawer-field">
+                <label class="drawer-label">
+                    Model Answer
+                    <span class="optional-tag">Optional</span>
+                </label>
+                <textarea id="modelAnswer" class="drawer-textarea" rows="3"
+                    placeholder="Enter expected answer for reference / auto-grading…"></textarea>
+            </div>
+        </div>
+
+        <!-- ✅ NEW: Descriptive Section -->
+        <div id="descriptiveSection" style="display:none;">
+            <div class="drawer-field">
+                <label class="drawer-label">
+                    Expected Answer
+                    <span class="optional-tag">Optional</span>
+                </label>
+                <textarea id="expectedAnswer" class="drawer-textarea" rows="4"
+                    placeholder="Describe what a good answer should contain…"></textarea>
+            </div>
+        </div>
+
+        <!-- ✅ NEW: Coding Section -->
+        <div id="codingSection" style="display:none;">
+            <div class="drawer-field">
+                <label class="drawer-label" for="codingLanguage">Language <span class="req">*</span></label>
+                <select id="codingLanguage" class="drawer-select">
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="cpp">C++</option>
+                </select>
+            </div>
+            <div class="drawer-field">
+                <div class="options-header">
+                    <label class="drawer-label">
+                        Test Cases
+                        <span class="optional-tag">Optional</span>
+                    </label>
+                    <button type="button" class="add-option-btn" id="addTestCaseBtn">
+                        <i class="fas fa-plus"></i> Add Test Case
+                    </button>
+                </div>
+                <div id="testCasesList"></div>
+            </div>
+        </div>
+
+        <!-- ✅ FIX: id renamed qMarks → qPoints, label "Marks" → "Points", error id qPointsErr -->
+        <div class="drawer-row-2">
+            <div class="drawer-field">
+                <label class="drawer-label" for="qPoints">Points <span class="req">*</span></label>
+                <input type="number" id="qPoints" class="drawer-input"
+                    placeholder="e.g. 2" min="0.5" max="100" step="0.5">
+                <span class="drawer-error" id="qPointsErr"></span>
+            </div>
+            <div class="drawer-field">
+                <label class="drawer-label" for="qOrder">Order / Position</label>
+                <input type="number" id="qOrder" class="drawer-input"
+                    placeholder="Auto" min="1">
+                <span class="drawer-help">Leave blank for auto</span>
+            </div>
+        </div>
+
+        <!-- Explanation -->
+        <div class="drawer-field">
+            <label class="drawer-label">
+                Explanation
+                <span class="optional-tag">Optional</span>
+            </label>
+            <textarea id="qExplanation" class="drawer-textarea drawer-textarea-sm" rows="2"
+                placeholder="Explanation shown to students after the exam…"></textarea>
+        </div>
+
+    </div><!-- /drawer-body -->
+
+    <div class="drawer-footer">
+        <button type="button" class="btn btn-outline" id="drawerCancelBtn">Cancel</button>
+        <div class="drawer-footer-right">
+            <button type="button" class="btn btn-ghost" id="drawerSaveAddBtn">
+                <span class="btn-text"><i class="fas fa-plus"></i> Save &amp; Add Another</span>
+                <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Saving…</span>
+            </button>
+            <button type="button" class="btn btn-primary" id="drawerSaveBtn">
+                <span class="btn-text"><i class="fas fa-save"></i> Save Question</span>
+                <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i> Saving…</span>
+            </button>
+        </div>
+    </div>
+</aside>
+
+<!-- ══ DELETE CONFIRM MODAL ══ -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title danger"><i class="fas fa-trash"></i> Delete Question</h2>
+            <button class="modal-close" id="deleteModalClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="danger-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <p>This question will be permanently removed from the exam.</p>
+                    <p class="danger-note">This action cannot be undone.</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" id="deleteCancelBtn">Cancel</button>
+            <button class="btn btn-danger-solid" id="deleteConfirmBtn">
+                <span class="btn-text"><i class="fas fa-trash"></i> Delete</span>
+                <span class="btn-loader hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/config.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/ui.js"></script>
+<script src="../../js/pages/staff/examedit.js"></script>
+</body>
+</html>

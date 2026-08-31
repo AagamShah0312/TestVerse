@@ -1,0 +1,30 @@
+/* ============================================
+   UNIVERSITY EXAM PORTAL - DESIGN SYSTEM
+   Premium Dark Theme with Glassmorphism
+   ============================================ */
+
+/* Core */
+@import url('core/variables.css');
+@import url('core/reset.css');
+@import url('core/typography.css');
+
+/* Layout */
+@import url('layout.css');
+
+/* Components */
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/navigation.css');
+@import url('components/feedback.css');
+@import url('components/modals.css');
+@import url('components/tables.css');
+@import url('components/questions.css');
+@import url('components/loading.css');
+
+/* Utilities & Animations */
+@import url('utilities.css');
+@import url('animations.css');
+
+/* Footer */
+@import url('footer.css');

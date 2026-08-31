@@ -1,0 +1,162 @@
+/**
+ * Student Profile Page Styles
+ */
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-6);
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Profile Card */
+.profile-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    text-align: center;
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-1);
+}
+
+.profile-email {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.profile-info {
+    text-align: left;
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--space-4);
+}
+
+.profile-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-info-item:last-child {
+    border-bottom: none;
+}
+
+.profile-info-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.profile-info-value {
+    font-weight: 500;
+}
+
+/* Settings Panels */
+.settings-panel {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.settings-header {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.settings-body {
+    padding: var(--space-6);
+}
+
+/* Tabs */
+.profile-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-6);
+}
+
+.profile-tab {
+    padding: var(--space-3) var(--space-6);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.profile-tab:hover {
+    color: var(--text-primary);
+}
+
+.profile-tab.active {
+    color: var(--primary);
+}
+
+.profile-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Success/Error Messages */
+.message-success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+}
+
+.message-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+}

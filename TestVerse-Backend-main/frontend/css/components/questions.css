@@ -1,0 +1,187 @@
+/* ============================================
+   QUESTION COMPONENTS (Timer, Cards, Navigator)
+   ============================================ */
+
+/* Exam Timer */
+.exam-timer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    font-variant-numeric: tabular-nums;
+}
+
+.exam-timer-warning {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.exam-timer-danger {
+    border-color: var(--error);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+/* Question Card */
+.question-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-4);
+}
+
+.question-number {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.question-marks {
+    font-size: var(--text-sm);
+    color: var(--primary-400);
+    font-weight: var(--font-semibold);
+}
+
+.question-text {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--space-6);
+    line-height: 1.6;
+}
+
+.question-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.option-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-500);
+}
+
+.option-item.selected {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: var(--primary-500);
+}
+
+.option-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.option-item.selected .option-radio {
+    border-color: var(--primary-500);
+    background: var(--primary-500);
+}
+
+.option-item.selected .option-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: var(--radius-full);
+}
+
+/* Question Navigator */
+.question-navigator {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-2);
+}
+
+.nav-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nav-item:hover {
+    border-color: var(--primary-500);
+}
+
+.nav-item.current {
+    background: var(--primary-500);
+    border-color: var(--primary-500);
+    color: white;
+}
+
+.nav-item.answered {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.nav-item.flagged {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: var(--warning);
+    color: var(--warning);
+}
+
+/* Exam Security - prevent text selection */
+.exam-mode {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.exam-mode * {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Allow text input in exam mode */
+.exam-mode input,
+.exam-mode textarea,
+.exam-mode .monaco-editor,
+.exam-mode .monaco-editor *,
+.exam-mode .code-editor-container,
+.exam-mode .code-editor-container *,
+.exam-mode .code-fallback {
+    user-select: text;
+    -webkit-user-select: text;
+}
