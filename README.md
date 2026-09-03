@@ -1,46 +1,37 @@
 # TestVerse
 
-## Run locally (Windows)
+TestVerse is an online examination platform for students and staff. It supports role-based dashboards, exam authoring, timed attempts, saved answers, results, analytics, and API documentation.
 
-Open **Command Prompt** in `backend` (the Conda activation script is a batch file), then run:
+## Demo credentials
 
-```bat
-call C:\Users\cebc\anaconda3\Scripts\activate.bat
-cd /d "E:\Clg Projects Only\Projects\Testverse\backend"
-set DEBUG=True
-pip install -r requirements.txt
-if not exist .env copy .env.example .env
-python manage.py migrate
-python manage.py runserver
-```
+These accounts are intentionally public so reviewers can explore both roles. All use the password **`TestVerse@123`**.
 
-In a second terminal, serve the frontend:
+| Role | Email | Username |
+|---|---|---|
+| Staff | `staff1@testverse.local` | `staff1` |
+| Staff | `staff2@testverse.local` | `staff2` |
+| Student | `student1@testverse.local` | `student1` |
+| Student | `student2@testverse.local` | `student2` |
+| Student | `student3@testverse.local` | `student3` |
+| Student | `student4@testverse.local` | `student4` |
+| Student | `student5@testverse.local` | `student5` |
 
-```bat
-cd /d "E:\Clg Projects Only\Projects\Testverse\frontend"
-python -m http.server 3000
-```
+Log in with an **email address** and the shared password. Staff accounts open the staff dashboard; student accounts open the student dashboard.
 
-Open `http://localhost:3000`. The API is at `http://localhost:8000`; the health check is `/health/`.
+## Demo data
 
-In PowerShell, run `cmd /c "call C:\Users\cebc\anaconda3\Scripts\activate.bat && set DEBUG=True && python manage.py runserver"` instead. Calling `activate` directly from PowerShell does not update that shell's PATH.
+The application automatically seeds idempotent presentation data when started through Docker or the hosted service:
 
-## Docker
+- A live Web Development Fundamentals exam that a student can attempt.
+- An upcoming Database Systems exam.
+- A completed Python Basics exam, including an attempted submission and a published result for `student1@testverse.local`.
 
-Create `backend/.env` from `backend/.env.example`, set a real `SECRET_KEY`, then from the repository root run:
+The seed command is safe to run repeatedly: `python manage.py seed_demo_data`.
 
-```sh
-docker compose up --build
-```
+## Technology
 
-Open `http://localhost:3000`. Stop with `docker compose down`. This Compose setup runs the frontend, Django API, and Redis. It uses SQLite for development; use PostgreSQL through `DATABASE_URL` for persistent production data.
-
-## Deploy
-
-### Render (API)
-
-Create a Blueprint from this repository; Render reads `render.yaml`. Set `DATABASE_URL` to a managed PostgreSQL connection string and set `CORS_ALLOWED_ORIGINS` to the final Vercel URL, for example `https://your-project.vercel.app`. If Celery is needed in production, also provision Redis and set the two Celery URLs.
-
-### Vercel (frontend)
-
-Import the same repository, set the **Root Directory** to `frontend`, and deploy as a static site. `vercel.json` rewrites `/api/*` requests to `https://testverse-backend.onrender.com`. If your Render service has another hostname, replace that hostname in `vercel.json` before deployment. Then add the Vercel deployment URL to Render's `CORS_ALLOWED_ORIGINS`.
+- Django and Django REST Framework API
+- Static HTML, CSS, and JavaScript frontend
+- JWT authentication and role-based authorization
+- PostgreSQL-ready production configuration; SQLite for local development
+- Docker Compose, Redis, Vercel, and Render configuration

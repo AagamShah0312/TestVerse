@@ -1,5 +1,6 @@
 # Secrets and local configuration
 backend/.env
+Readme1.md
 *.env.local
 
 # Python build/runtime files
