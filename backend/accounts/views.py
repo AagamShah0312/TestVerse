@@ -123,32 +123,15 @@ class ChangePasswordView(generics.GenericAPIView):
     
     def post(self, request, *args, **kwargs):
         user = request.user
-        old_password = request.data.get('old_password')
-        new_password = request.data.get('new_password')
-        confirm_password = request.data.get('confirm_password')
-        
-        # Validate inputs
-        if not old_password or not new_password or not confirm_password:
-            return Response({
-                'error': 'All fields are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        old_password = serializer.validated_data['old_password']
+        new_password = serializer.validated_data['new_password']
         
         # Check old password
         if not user.check_password(old_password):
             return Response({
                 'error': 'Current password is incorrect'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Check new password match
-        if new_password != confirm_password:
-            return Response({
-                'error': 'New passwords do not match'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Check password length
-        if len(new_password) < 6:
-            return Response({
-                'error': 'Password must be at least 6 characters'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         # Change password

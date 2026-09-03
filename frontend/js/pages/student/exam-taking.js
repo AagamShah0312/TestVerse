@@ -120,7 +120,7 @@ async function _loadExam() {
             return;
         }
 
-        _attemptId = attemptData.attempt_id || attemptData.id || _attemptId;
+        _attemptId = attemptData.attemptId || attemptData.attempt_id || attemptData.id || _attemptId;
         _questions = attemptData.questions || attemptData.question_set || [];
         _timeLeft  = attemptData.time_remaining_seconds
             ?? attemptData.duration_seconds

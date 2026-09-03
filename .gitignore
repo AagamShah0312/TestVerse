@@ -1,0 +1,14 @@
+# Secrets and local configuration
+backend/.env
+*.env.local
+
+# Python build/runtime files
+**/__pycache__/
+*.py[cod]
+backend/staticfiles/
+backend/media/
+backend/logs/
+
+# Local Docker and editor files
+.docker/
+.vscode/

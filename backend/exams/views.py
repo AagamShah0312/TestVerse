@@ -148,30 +148,9 @@ class StudentStartExamView(generics.CreateAPIView):
         ).first()
         
         if existing_attempt:
-            # Check if attempt time has expired
-            remaining_time = get_attempt_remaining_time(existing_attempt)
-            
-            if remaining_time <= 0 or timezone.now() > exam.end_time:
-                # Time expired, auto-submit
-                existing_attempt.submit_time = timezone.now()
-                existing_attempt.status = 'auto_submitted'
-                existing_attempt.save()
-                calculate_exam_result(existing_attempt)
-                return Response({
-                    'error': 'Exam time has expired. Your exam has been auto-submitted.'
-                }, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Resume existing attempt with saved answers
-            questions_data = self._build_questions_with_answers(exam, existing_attempt, request)
-            
             return Response({
-                'message': 'Exam resumed',
-                'attemptId': str(existing_attempt.id),
-                'startTime': existing_attempt.start_time,
-                'endTime': exam.end_time,
-                'time_remaining_seconds': remaining_time,
-                'questions': questions_data
-            }, status=status.HTTP_200_OK)
+                'error': 'You already have an active attempt for this exam. Resume it instead.'
+            }, status=status.HTTP_400_BAD_REQUEST)
         
         # Check if already submitted (not in-progress)
         submitted_attempt = ExamAttempt.objects.filter(
@@ -219,6 +198,34 @@ class StudentStartExamView(generics.CreateAPIView):
             'questions': serializer.data['questions']
         }, status=status.HTTP_201_CREATED)
 
+    def get(self, request, *args, **kwargs):
+        """Return an active attempt so the exam page can resume it safely."""
+        exam_id = kwargs.get('exam_id')
+        attempt = ExamAttempt.objects.filter(
+            exam_id=exam_id,
+            student=request.user,
+            status='in_progress',
+        ).select_related('exam').first()
+        if not attempt:
+            return Response({'error': 'Active attempt not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        remaining_time = get_attempt_remaining_time(attempt)
+        if remaining_time <= 0 or timezone.now() > attempt.exam.end_time:
+            attempt.submit_time = timezone.now()
+            attempt.status = 'auto_submitted'
+            attempt.save(update_fields=['submit_time', 'status', 'updated_at'])
+            calculate_exam_result(attempt)
+            return Response({'error': 'Exam time has expired.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({
+            'message': 'Exam resumed',
+            'attemptId': str(attempt.id),
+            'startTime': attempt.start_time,
+            'endTime': attempt.exam.end_time,
+            'time_remaining_seconds': remaining_time,
+            'questions': self._build_questions_with_answers(attempt.exam, attempt, request),
+        })
+
 
 def _payload_answer_items(payload):
     """Normalize incoming payload into a list of answer dicts."""
@@ -258,7 +265,7 @@ def _persist_attempt_answers(attempt, payload):
         has_answer_field = 'answer' in item
         has_code_field = 'code' in item
 
-        if has_answer_field:
+        if has_answer_field and item.get('answer') is not None:
             answer.answer = item.get('answer')
             update_fields.append('answer')
 

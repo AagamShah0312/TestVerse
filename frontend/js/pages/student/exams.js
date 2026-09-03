@@ -438,7 +438,7 @@ async function _handleStartConfirm() {
             return;
         }
 
-        const attemptId = data?.attempt_id || data?.id;
+        const attemptId = data?.attemptId || data?.attempt_id || data?.id;
         window.location.href = `exam-taking.html?exam_id=${_pendingStartId}${attemptId ? '&attempt_id=' + attemptId : ''}`;
 
     } catch (err) {

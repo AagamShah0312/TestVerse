@@ -4,7 +4,11 @@
  */
 
 const CONFIG = {
-  BASE_URL: 'https://testverse-backend.onrender.com',
+  // Docker/local static servers call Django directly.  Production uses a
+  // same-origin /api rewrite configured in vercel.json.
+  BASE_URL: ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? `${window.location.protocol}//${window.location.hostname}:8000`
+    : '',
 
   ENDPOINTS: {
     // ── Auth ──────────────────────────────────────────────────────────────────

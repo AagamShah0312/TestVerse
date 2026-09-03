@@ -4,6 +4,7 @@ Django settings for exam_system project.
 
 from pathlib import Path
 from datetime import timedelta
+import os
 from decouple import config
 
 # Build paths inside the project
@@ -13,17 +14,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-your-secret-key-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+# Accept common deployment labels (for example ``DEBUG=release``) as False
+# instead of crashing at import time. Only explicit development values enable
+# Django debug mode.
+DEBUG = config(
+    'DEBUG',
+    default=False,
+    cast=lambda value: str(value).strip().lower() in {'1', 'true', 'yes', 'on', 'debug', 'development'},
+)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
 
-# Handle Render's forwarded host headers in production
+# Render supplies a public hostname, but retain explicit hosts too (useful for
+# custom domains and health checks).
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Extract host from forwarded headers for Render
-    import os
-    if 'RENDER' in os.environ:
-        ALLOWED_HOSTS = ['.onrender.com']
+    if os.environ.get('RENDER') and '.onrender.com' not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append('.onrender.com')
 
 # Application definition
 INSTALLED_APPS = [
@@ -81,9 +88,6 @@ WSGI_APPLICATION = 'exam_system.wsgi.application'
 
 # Database
 # Use Supabase PostgreSQL in production, SQLite for local development
-import os
-from decouple import config
-
 # Database - Supabase PostgreSQL for Production
 import dj_database_url
 
@@ -92,13 +96,14 @@ if config('DATABASE_URL', default=None):
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
-    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
+    # Supabase/Render PostgreSQL require TLS; this does not affect SQLite.
+    DATABASES['default']['OPTIONS'] = {'sslmode': config('DB_SSLMODE', default='require')}
 else:
     # Development fallback - SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': config('SQLITE_PATH', default=str(BASE_DIR / 'db.sqlite3')),
         }
     }
 
@@ -178,11 +183,12 @@ SIMPLE_JWT = {
     'AUTH_REFRESH_ROTATE_REFRESH_TOKENS': True,
 }
 
-CORS_ALLOW_ALL_ORIGINS = True  # TEMPORARY: Change to False after adding specific domains
-CORS_ALLOWED_ORIGINS = [
-        "http://127.0.0.1:3000",                      # Local development
-        "http://localhost:3000",                      # Alternative local development
-    ]
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='http://localhost:3000,http://127.0.0.1:3000,http://localhost:5500,http://127.0.0.1:5500',
+    cast=lambda value: [origin.strip() for origin in value.split(',') if origin.strip()],
+)
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -218,18 +224,14 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'exam_system.log',
-        },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'INFO',
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
@@ -257,16 +259,10 @@ if not DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
-        'handlers': {
-            'file': {
-                'level': 'INFO',
-                'class': 'logging.FileHandler',
-                'filename': BASE_DIR / 'logs' / 'production.log',
-            },
-        },
+        'handlers': {'console': {'class': 'logging.StreamHandler'}},
         'loggers': {
             'django': {
-                'handlers': ['file'],
+            'handlers': ['console'],
                 'level': 'INFO',
                 'propagate': True,
             },
@@ -276,9 +272,3 @@ else:
     # Development settings
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-# Create logs directory if it doesn't exist
-import os
-log_dir = BASE_DIR / 'logs'
-os.makedirs(log_dir, exist_ok=True)
-
