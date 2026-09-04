@@ -4,11 +4,11 @@
  */
 
 const CONFIG = {
-  // Docker/local static servers call Django directly.  Production uses a
-  // same-origin /api rewrite configured in vercel.json.
+  // Docker/local static servers call Django directly. Production calls the
+  // Render API directly, which avoids relying on a Vercel rewrite for auth.
   BASE_URL: ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? `${window.location.protocol}//${window.location.hostname}:8000`
-    : '',
+    : 'https://testverse-oxp7.onrender.com',
 
   ENDPOINTS: {
     // ── Auth ──────────────────────────────────────────────────────────────────

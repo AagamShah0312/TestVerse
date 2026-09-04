@@ -96,8 +96,10 @@ if config('DATABASE_URL', default=None):
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
-    # Supabase/Render PostgreSQL require TLS; this does not affect SQLite.
-    DATABASES['default']['OPTIONS'] = {'sslmode': config('DB_SSLMODE', default='require')}
+    # ``prefer`` negotiates TLS for external Render/Supabase URLs and also
+    # supports Render's private internal PostgreSQL URL, where TLS is optional.
+    DATABASES['default']['OPTIONS'] = {'sslmode': config('DB_SSLMODE', default='prefer')}
+    DATABASES['default']['CONN_MAX_AGE'] = 60
 else:
     # Development fallback - SQLite
     DATABASES = {
@@ -188,6 +190,13 @@ CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
     default='http://localhost:3000,http://127.0.0.1:3000,http://localhost:5500,http://127.0.0.1:5500',
     cast=lambda value: [origin.strip() for origin in value.split(',') if origin.strip()],
+)
+# Permit Vercel's stable production URL and its generated deployment URLs.
+# Keep explicit CORS_ALLOWED_ORIGINS for any custom frontend domain.
+CORS_ALLOWED_ORIGIN_REGEXES = config(
+    'CORS_ALLOWED_ORIGIN_REGEXES',
+    default=r'^https://testverse(?:-[a-z0-9]+)?-jcm8\.vercel\.app$',
+    cast=lambda value: [pattern.strip() for pattern in value.split(',') if pattern.strip()],
 )
 
 CORS_ALLOW_CREDENTIALS = True
