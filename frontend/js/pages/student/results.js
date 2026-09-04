@@ -35,7 +35,7 @@ let _openResultId = null;   // result id currently open in modal
 //  BOOT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
 
     _initSidebar();
     _populateUser();

@@ -29,7 +29,7 @@ let _pendingStartId = null;
 
 // ── Boot ───────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
     _initSidebar();
     _populateUser();
     _initControls();

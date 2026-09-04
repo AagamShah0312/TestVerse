@@ -33,7 +33,7 @@ let _searchQuery = '';
 //  BOOT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
     _me = Auth.getUser();
     _initSidebar();
     _populateUser();

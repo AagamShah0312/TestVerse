@@ -6,7 +6,7 @@
 let _liveTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
     _initSidebar();
     _populateUser();
     _loadAll();

@@ -28,7 +28,7 @@ let _activeTab  = 'info';
 //  BOOT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
     _initSidebar();
     _populateFromCache();   // instant paint from localStorage
     _wireTabs();

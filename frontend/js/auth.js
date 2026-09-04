@@ -79,6 +79,19 @@ const Auth = (() => {
     return true;
   };
 
+  /** Call on student-only pages */
+  const requireStudent = () => {
+    if (!isLoggedIn()) {
+      redirectToLogin('Please log in to continue.');
+      return false;
+    }
+    if (!isStudent()) {
+      window.location.href = CONFIG.ROUTES.STAFF_DASH;
+      return false;
+    }
+    return true;
+  };
+
   /** Call on login/register pages — bounces away if already authenticated */
   const redirectIfLoggedIn = () => {
     if (isLoggedIn()) {
@@ -207,6 +220,7 @@ const Auth = (() => {
     logoutAndRedirectHome,
     requireAuth,
     requireStaff,
+    requireStudent,
     redirectIfLoggedIn,
     redirectToDashboard,
     redirectToLogin,

@@ -42,7 +42,7 @@ let _period    = 'all';    // 'all' | '7' | '30' | '90'
 //  BOOT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
     _initSidebar();
     _populateUser();
     _wireControls();

@@ -77,7 +77,7 @@ const WARN_THRESHOLDS = [
 //  BOOT
 // ══════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!Auth.requireAuth()) return;
+    if (!Auth.requireStudent()) return;
 
     const params  = new URLSearchParams(location.search);
     _examId    = params.get('exam_id');
